@@ -1368,6 +1368,16 @@
       "output":{"shape":"CreateVolumeExportTaskResult"},
       "documentation":"<p>Exports a running or stopped volume to an Amazon S3 bucket.</p>"
     },
+    "CreateVolumeVersion":{
+      "name":"CreateVolumeVersion",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateVolumeVersionRequest"},
+      "output":{"shape":"VolumeVersion"},
+      "documentation":"<p>Creates a version of the volume</p>"
+    },
     "CreateVpc":{
       "name":"CreateVpc",
       "http":{
@@ -2112,6 +2122,15 @@
       },
       "input":{"shape":"DeleteVolumeRequest"},
       "documentation":"<p>Deletes the specified EBS volume. The volume must be in the <code>available</code> state (not attached to an instance).</p> <p>The volume can remain in the <code>deleting</code> state for several minutes.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/ebs-deleting-volume.html\">Delete an Amazon EBS volume</a> in the <i>Amazon EBS User Guide</i>.</p>"
+    },
+    "DeleteVolumeVersion":{
+      "name":"DeleteVolumeVersion",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteVolumeVersionRequest"},
+      "documentation":"<p>Deletes specified volume version.</p>"
     },
     "DeleteVpc":{
       "name":"DeleteVpc",
@@ -3737,6 +3756,16 @@
       "input":{"shape":"DescribeVolumesModificationsRequest"},
       "output":{"shape":"DescribeVolumesModificationsResult"},
       "documentation":"<p>Describes the most recent volume modification request for the specified EBS volumes.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/monitoring-volume-modifications.html\"> Monitor the progress of volume modifications</a> in the <i>Amazon EBS User Guide</i>.</p>"
+    },
+    "DescribeVolumeVersions":{
+      "name":"DescribeVolumeVersions",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeVolumeVersionsRequest"},
+      "output":{"shape":"DescribeVolumeVersionsResult"},
+      "documentation":"<p>Describes volume versions.</p>"
     },
     "DescribeVpcAttribute":{
       "name":"DescribeVpcAttribute",
@@ -6311,6 +6340,15 @@
       "input":{"shape":"RestoreSnapshotTierRequest"},
       "output":{"shape":"RestoreSnapshotTierResult"},
       "documentation":"<p>Restores an archived Amazon EBS snapshot for use temporarily or permanently, or modifies the restore period or restore type for a snapshot that was previously temporarily restored.</p> <p>For more information see <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/working-with-snapshot-archiving.html#restore-archived-snapshot\"> Restore an archived snapshot</a> and <a href=\"https://docs.aws.amazon.com/ebs/latest/userguide/working-with-snapshot-archiving.html#modify-temp-restore-period\"> modify the restore period or restore type for a temporarily restored snapshot</a> in the <i>Amazon EBS User Guide</i>.</p>"
+    },
+    "RestoreVolumeVersion":{
+      "name":"RestoreVolumeVersion",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"RestoreVolumeVersionRequest"},
+      "documentation":"<p>Restores the volume to the specified version.</p>"
     },
     "RevokeClientVpnIngress":{
       "name":"RevokeClientVpnIngress",
@@ -17293,6 +17331,26 @@
         }
       }
     },
+    "CreateVolumeVersionRequest":{
+      "type":"structure",
+      "required":["VolumeId"],
+      "members":{
+        "VolumeId":{
+          "shape":"VolumeId",
+          "documentation":"<p>The ID of the EBS volume.</p>"
+        },
+        "TagSpecifications":{
+          "shape":"TagSpecificationList",
+          "documentation":"<p>The tags to apply to the volume version during creation.</p>",
+          "locationName":"TagSpecification"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        }
+      }
+    },
     "CreateVpcEndpointConnectionNotificationRequest":{
       "type":"structure",
       "required":[
@@ -19839,6 +19897,28 @@
         "VolumeId":{
           "shape":"VolumeId",
           "documentation":"<p>The ID of the volume.</p>"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        }
+      }
+    },
+    "DeleteVolumeVersionRequest":{
+      "type":"structure",
+      "required":[
+        "VersionId",
+        "VolumeId"
+      ],
+      "members":{
+        "VersionId":{
+          "shape":"VolumeVersionId",
+          "documentation":"<p>The ID of the volume version.</p>"
+        },
+        "VolumeId":{
+          "shape":"VolumeId",
+          "documentation":"<p>The ID of the volume that the version belongs to.</p>"
         },
         "DryRun":{
           "shape":"Boolean",
@@ -26791,6 +26871,36 @@
           "shape":"VolumeModificationList",
           "documentation":"<p>Information about the volume modifications.</p>",
           "locationName":"volumeModificationSet"
+        }
+      }
+    },
+    "DescribeVolumeVersionsRequest":{
+      "type":"structure",
+      "members":{
+        "Filters":{
+          "shape":"FilterList",
+          "documentation":"<p>The filters.</p>",
+          "locationName":"Filter"
+        },
+        "VersionIds":{
+          "shape":"VolumeVersionIdStringList",
+          "documentation":"<p>The volume version IDs.</p>",
+          "locationName":"VersionId"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        }
+      }
+    },
+    "DescribeVolumeVersionsResult":{
+      "type":"structure",
+      "members":{
+        "VolumeVersions":{
+          "shape":"VolumeVersionList",
+          "documentation":"<p>Information about volume versions.</p>",
+          "locationName":"volumeVersionSet"
         }
       }
     },
@@ -54426,6 +54536,7 @@
         "transit-gateway-route-table",
         "transit-gateway-route-table-announcement",
         "volume",
+        "volume-version",
         "vpc",
         "vpc-endpoint",
         "vpc-endpoint-connection",
@@ -54881,6 +54992,28 @@
       "min":1
     },
     "RetentionPeriodResponseDays":{"type":"integer"},
+    "RestoreVolumeVersionRequest":{
+      "type":"structure",
+      "required":[
+        "VersionId",
+        "VolumeId"
+      ],
+      "members":{
+        "VersionId":{
+          "shape":"VolumeVersionId",
+          "documentation":"<p>The ID of the volume version.</p>"
+        },
+        "VolumeId":{
+          "shape":"VolumeId",
+          "documentation":"<p>The ID of the volume that the version belongs to.</p>"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        }
+      }
+    },
     "RevokeClientVpnIngressRequest":{
       "type":"structure",
       "required":[
@@ -64252,6 +64385,52 @@
         "st1",
         "gp3"
       ]
+    },
+    "VolumeVersion":{
+      "type":"structure",
+      "members":{
+        "VersionId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the volume version. Each volume version receives a unique identifier when it is created.</p>",
+          "locationName":"versionId"
+        },
+        "VolumeId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the volume that the version belongs to.</p>",
+          "locationName":"volumeId"
+        },
+        "AvailabilityZone":{
+          "shape":"String",
+          "documentation":"<p>The Availability Zone for the volume version.</p>",
+          "locationName":"availabilityZone"
+        },
+        "CreateTime":{
+          "shape":"DateTime",
+          "documentation":"<p>The time stamp when volume version was created.</p>",
+          "locationName":"createTime"
+        },
+        "Tags":{
+          "shape":"TagList",
+          "documentation":"<p>Any tags assigned to the volume version.</p>",
+          "locationName":"tagSet"
+        }
+      },
+      "documentation":"<p>Describes a volume version.</p>"
+    },
+    "VolumeVersionId":{"type":"string"},
+    "VolumeVersionIdStringList":{
+      "type":"list",
+      "member":{
+        "shape":"VolumeVersionId",
+        "locationName":"VersionId"
+      }
+    },
+    "VolumeVersionList":{
+      "type":"list",
+      "member":{
+        "shape":"VolumeVersion",
+        "locationName":"item"
+      }
     },
     "Vpc":{
       "type":"structure",
