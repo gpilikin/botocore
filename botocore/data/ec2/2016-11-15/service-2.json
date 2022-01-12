@@ -36071,13 +36071,10 @@
           "documentation":"<p>The tags to apply to the import image task during creation.</p>",
           "locationName":"TagSpecification"
         },
-        "UsageOperation":{
+        "VirtualizationType":{
           "shape":"String",
-          "documentation":"<p>The usage operation value. For more information, see <a href=\"https://docs.aws.amazon.com/vm-import/latest/userguide/vmie_prereqs.html#prerequisites\">Licensing options</a> in the <i>VM Import/Export User Guide</i>.</p>"
-        },
-        "BootMode":{
-          "shape":"BootModeValues",
-          "documentation":"<p>The boot mode of the virtual machine.</p> <note> <p>The <code>uefi-preferred</code> boot mode isn't supported for importing images. For more information, see <a href=\"https://docs.aws.amazon.com/vm-import/latest/userguide/prerequisites.html#vmimport-boot-modes\">Boot modes</a> in the <i>VM Import/Export User Guide</i>.</p> </note>"
+          "documentation":"<p>The type of virtualization (<code>hvm</code> | <code>hvm-legacy</code>).</p> <p>Default: <code>hvm</code> </p>",
+          "locationName":"virtualizationType"
         }
       }
     },
