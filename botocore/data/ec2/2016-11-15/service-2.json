@@ -2487,6 +2487,16 @@
       "output":{"shape":"DescribeExportTasksResult"},
       "documentation":"<p>Describes the specified export instance tasks or all of your export instance tasks.</p>"
     },
+    "DescribeExportVolumeTasks":{
+      "name":"DescribeExportVolumeTasks",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeExportVolumeTasksRequest"},
+      "output":{"shape":"DescribeExportVolumeTasksResult"},
+      "documentation":"<p>Describes the specified export instance tasks or all of your export instance tasks.</p>"
+    },
     "DescribeFastLaunchImages":{
       "name":"DescribeFastLaunchImages",
       "http":{
@@ -20161,6 +20171,26 @@
         }
       }
     },
+    "DescribeExportVolumeTasksRequest":{
+      "type":"structure",
+      "members":{
+        "ExportTaskIds":{
+          "shape":"ExportTaskIdStringList",
+          "documentation":"<p>The export task IDs.</p>",
+          "locationName":"exportTaskId"
+        }
+      }
+    },
+    "DescribeExportVolumeTasksResult":{
+      "type":"structure",
+      "members":{
+        "ExportTasks":{
+          "shape":"ExportVolumeTaskList",
+          "documentation":"<p>Information about the export tasks.</p>",
+          "locationName":"exportTaskSet"
+        }
+      }
+    },
     "DescribeFastLaunchImagesRequest":{
       "type":"structure",
       "members":{
@@ -29586,6 +29616,13 @@
         }
       },
       "documentation":"<p>Describes an export volume task.</p>"
+    },
+    "ExportVolumeTaskList":{
+      "type":"list",
+      "member":{
+        "shape":"ExportVolumeTask",
+        "locationName":"item"
+      }
     },
     "FailedCapacityReservationFleetCancellationResult":{
       "type":"structure",
