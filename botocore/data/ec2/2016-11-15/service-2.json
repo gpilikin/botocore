@@ -6157,6 +6157,16 @@
       "input":{"shape":"ReplaceNetworkAclEntryRequest"},
       "documentation":"<p>Replaces an entry (rule) in a network ACL. For more information, see <a href=\"https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html\">Network ACLs</a> in the <i>Amazon VPC User Guide</i>.</p>"
     },
+    "ReplacePrimaryNetworkInterface":{
+      "name":"ReplacePrimaryNetworkInterface",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ReplacePrimaryNetworkInterfaceRequest"},
+      "output":{"shape":"ReplacePrimaryNetworkInterfaceResult"},
+      "documentation": "<p>Replaces Instance's primary Elastic Network Interface with new one.</p>"
+    },
     "ReplaceRoute":{
       "name":"ReplaceRoute",
       "http":{
@@ -53142,6 +53152,32 @@
       "member":{
         "shape":"ReplaceRootVolumeTask",
         "locationName":"item"
+      }
+    },
+    "ReplacePrimaryNetworkInterfaceRequest":{
+      "type":"structure",
+      "required":["InstanceId", "NetworkInterfaceId"],
+      "members":{
+        "InstanceId":{
+          "shape":"String",
+          "documentation":"<p>The Instance ID for primary Elastic Network Interface replace operation.</p>",
+          "locationName":"instanceId"
+        },
+        "NetworkInterfaceId":{
+          "shape":"String",
+          "documentation":"<p>New Elastic Network Interface ID.</p>",
+          "locationName": "networkInterfaceId"
+        }
+      }
+    },
+    "ReplacePrimaryNetworkInterfaceResult":{
+      "type":"structure",
+      "members":{
+        "AttachmentId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the network interface attachment.</p>",
+          "locationName":"attachmentId"
+        }
       }
     },
     "ReplaceRouteRequest":{
