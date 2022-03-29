@@ -63874,6 +63874,35 @@
       "max":2,
       "min":0
     },
+    "Switch":{
+      "type":"structure",
+      "members":{
+        "SwitchId":{
+          "shape":"String",
+          "locationName":"switchId"
+        },
+        "SwitchName":{
+          "shape":"String",
+          "locationName":"switchName"
+        }
+      }
+    },
+    "SwitchId":{
+      "type":"string"
+    },
+    "SwitchIdList":{
+      "type":"list",
+      "member":{
+        "shape":"SwitchId"
+      }
+    },
+    "SwitchList":{
+      "type":"list",
+      "member":{
+        "shape":"Switch",
+        "locationName":"item"
+      }
+    },
     "Volume":{
       "type":"structure",
       "members":{
