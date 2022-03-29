@@ -36896,6 +36896,110 @@
     "Instance":{
       "type":"structure",
       "members":{
+        "AmiLaunchIndex":{
+          "shape":"Integer",
+          "documentation":"<p>The AMI launch index, which can be used to find this instance in the launch group.</p>",
+          "locationName":"amiLaunchIndex"
+        },
+        "ImageId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the AMI used to launch the instance.</p>",
+          "locationName":"imageId"
+        },
+        "ImageDescription":{
+          "shape":"String",
+          "locationName":"imageDescription"
+        },
+        "InstanceId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the instance.</p>",
+          "locationName":"instanceId"
+        },
+        "InstanceType":{
+          "shape":"InstanceType",
+          "documentation":"<p>The instance type.</p>",
+          "locationName":"instanceType"
+        },
+        "KernelId":{
+          "shape":"String",
+          "documentation":"<p>The kernel associated with this instance, if applicable.</p>",
+          "locationName":"kernelId"
+        },
+        "KeyName":{
+          "shape":"String",
+          "documentation":"<p>The name of the key pair, if this instance was launched with an associated key pair.</p>",
+          "locationName":"keyName"
+        },
+        "LaunchTime":{
+          "shape":"DateTime",
+          "documentation":"<p>The time the instance was launched.</p>",
+          "locationName":"launchTime"
+        },
+        "Monitoring":{
+          "shape":"Monitoring",
+          "documentation":"<p>The monitoring for the instance.</p>",
+          "locationName":"monitoring"
+        },
+        "Placement":{
+          "shape":"Placement",
+          "documentation":"<p>The location where the instance launched, if applicable.</p>",
+          "locationName":"placement"
+        },
+        "Platform":{
+          "shape":"PlatformValues",
+          "documentation":"<p>The value is <code>Windows</code> for Windows instances; otherwise blank.</p>",
+          "locationName":"platform"
+        },
+        "PrivateDnsName":{
+          "shape":"String",
+          "documentation":"<p>(IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state. </p> <p>[EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your custom domain name servers must resolve the hostname as appropriate.</p>",
+          "locationName":"privateDnsName"
+        },
+        "PrivateIpAddress":{
+          "shape":"String",
+          "documentation":"<p>The private IPv4 address assigned to the instance.</p>",
+          "locationName":"privateIpAddress"
+        },
+        "ProductCodes":{
+          "shape":"ProductCodeList",
+          "documentation":"<p>The product codes attached to this instance, if applicable.</p>",
+          "locationName":"productCodes"
+        },
+        "PublicDnsName":{
+          "shape":"String",
+          "documentation":"<p>(IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance enters the <code>running</code> state. For EC2-VPC, this name is only available if you've enabled DNS hostnames for your VPC.</p>",
+          "locationName":"dnsName"
+        },
+        "PublicIpAddress":{
+          "shape":"String",
+          "documentation":"<p>The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable.</p> <p>A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.</p>",
+          "locationName":"ipAddress"
+        },
+        "RamdiskId":{
+          "shape":"String",
+          "documentation":"<p>The RAM disk associated with this instance, if applicable.</p>",
+          "locationName":"ramdiskId"
+        },
+        "State":{
+          "shape":"InstanceState",
+          "documentation":"<p>The current state of the instance.</p>",
+          "locationName":"instanceState"
+        },
+        "StateTransitionReason":{
+          "shape":"String",
+          "documentation":"<p>The reason for the most recent state transition. This might be an empty string.</p>",
+          "locationName":"reason"
+        },
+        "SubnetId":{
+          "shape":"String",
+          "documentation":"<p>[EC2-VPC] The ID of the subnet in which the instance is running.</p>",
+          "locationName":"subnetId"
+        },
+        "VpcId":{
+          "shape":"String",
+          "documentation":"<p>[EC2-VPC] The ID of the VPC in which the instance is running.</p>",
+          "locationName":"vpcId"
+        },
         "Architecture":{
           "shape":"ArchitectureValues",
           "documentation":"<p>The architecture of the image.</p>",
@@ -36990,6 +37094,10 @@
           "shape":"StateReason",
           "documentation":"<p>The reason for the most recent state transition.</p>",
           "locationName":"stateReason"
+        },
+        "Switches":{
+          "shape":"SwitchList",
+          "locationName":"switchesSet"
         },
         "Tags":{
           "shape":"TagList",
@@ -63855,7 +63963,7 @@
       "type":"string",
       "enum":[
         "hvm",
-        "paravirtual"
+        "hvm-legacy"
       ]
     },
     "VirtualizationTypeList":{
