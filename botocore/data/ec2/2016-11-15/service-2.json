@@ -37357,6 +37357,11 @@
           "documentation":"<p>Indicates whether the instance is optimized for Amazon EBS I/O.</p>",
           "locationName":"ebsOptimized"
         },
+        "HighAvailable":{
+          "shape":"AttributeBooleanValue",
+          "documentation":"<p>The high availability mode.</p>",
+          "locationName":"highAvailable"
+        },
         "InstanceId":{
           "shape":"String",
           "documentation":"<p>The ID of the instance.</p>",
@@ -37376,6 +37381,11 @@
           "shape":"AttributeValue",
           "documentation":"<p>The kernel ID.</p>",
           "locationName":"kernel"
+        },
+        "KeyName":{
+          "shape":"AttributeValue",
+          "documentation":"<p>The name of the key pair.</p>",
+          "locationName":"keyName"
         },
         "ProductCodes":{
           "shape":"ProductCodeList",
@@ -37407,15 +37417,10 @@
           "documentation":"<p>The user data.</p>",
           "locationName":"userData"
         },
-        "DisableApiStop":{
-          "shape":"AttributeBooleanValue",
-          "documentation":"<p>To enable the instance for Amazon Web Services Stop Protection, set this parameter to <code>true</code>; otherwise, set it to <code>false</code>.</p>",
-          "locationName":"disableApiStop"
-        },
-        "Groups":{
-          "shape":"GroupIdentifierList",
-          "documentation":"<p>The security groups associated with the instance.</p>",
-          "locationName":"groupSet"
+        "VirtualizationType":{
+          "shape":"AttributeValue",
+          "documentation":"<p>The type of virtualization.</p>",
+          "locationName":"virtualizationType"
         }
       },
       "documentation":"<p>Describes an instance attribute.</p>"
@@ -37425,6 +37430,7 @@
       "enum":[
         "instanceType",
         "kernel",
+        "keyName",
         "ramdisk",
         "userData",
         "disableApiTermination",
@@ -37438,7 +37444,8 @@
         "sriovNetSupport",
         "enaSupport",
         "enclaveOptions",
-        "disableApiStop"
+        "highAvailable",
+        "virtualizationType"
       ]
     },
     "InstanceAutoRecoveryState":{
