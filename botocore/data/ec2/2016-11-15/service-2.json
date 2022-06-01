@@ -35287,6 +35287,7 @@
       "enum":[
         "instanceType",
         "kernel",
+        "keyName",
         "ramdisk",
         "userData",
         "disableApiTermination",
@@ -35300,6 +35301,8 @@
         "sriovNetSupport",
         "enaSupport",
         "enclaveOptions",
+        "highAvailable",
+        "virtualizationType",
         "disableApiStop"
       ]
     },
