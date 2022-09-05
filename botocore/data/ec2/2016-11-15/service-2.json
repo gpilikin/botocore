@@ -7047,6 +7047,11 @@
           "shape":"AccountAttributeValueList",
           "documentation":"<p>The values for the account attribute.</p>",
           "locationName":"attributeValueSet"
+        },
+        "AttributeType": {
+          "shape": "String",
+          "documentation": "<p>The type for the account attribute.</p>",
+          "locationName": "attributeType"
         }
       },
       "documentation":"<p>Describes an account attribute.</p>"
@@ -20377,6 +20382,16 @@
     "DescribeAccountAttributesRequest":{
       "type":"structure",
       "members":{
+        "AttributeNames":{
+          "shape":"AccountAttributeNameStringList",
+          "documentation":"<p>The account attribute names.</p>",
+          "locationName":"attributeName"
+        },
+        "AvailabilityZone":{
+          "shape":"String",
+          "documentation":"<p>The Availability Zone.</p>",
+          "locationName":"availabilityZone"
+        },
         "DryRun":{
           "shape":"Boolean",
           "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
