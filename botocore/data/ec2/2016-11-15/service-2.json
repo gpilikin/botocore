@@ -29946,6 +29946,11 @@
           "shape":"TagList",
           "documentation":"<p>The tags for the export task.</p>",
           "locationName":"tagSet"
+        },
+        "CreateTime":{
+          "shape":"DateTime",
+          "documentation":"<p>The creation date and time of the export task.</p>",
+          "locationName":"createTime"
         }
       },
       "documentation":"<p>Describes an export instance task.</p>"
@@ -30114,7 +30119,8 @@
         },
         "VolumeId":{
           "shape":"VolumeId",
-          "documentation":"<p>The ID of the volume.</p>"
+          "documentation":"<p>The ID of the volume.</p>",
+          "locationName":"volumeId"
         },
         "Progress":{
           "shape":"String",
@@ -30130,6 +30136,11 @@
           "shape":"String",
           "documentation":"<p>The status message related to the export task.</p>",
           "locationName":"statusMessage"
+        },
+        "CreateTime":{
+          "shape":"DateTime",
+          "documentation":"<p>The creation date and time of the export task.</p>",
+          "locationName":"createTime"
         }
       },
       "documentation":"<p>Describes an export volume task.</p>"
