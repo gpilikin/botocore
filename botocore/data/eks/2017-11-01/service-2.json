@@ -8,7 +8,7 @@
     "protocols":["rest-json"],
     "serviceAbbreviation":"Amazon EKS",
     "serviceFullName":"Amazon Elastic Kubernetes Service",
-    "serviceId":"EKS",
+    "serviceId":"Elastic Kubernetes Service",
     "signatureVersion":"v4",
     "signingName":"eks",
     "uid":"eks-2017-11-01",
@@ -123,16 +123,6 @@
       "output":{"shape":"DeleteClusterResponse"},
       "documentation":"<p>Deletes Kubernetes cluster.</p>"
     },
-    "DeleteWorker":{
-      "name":"DeleteWorker",
-      "http":{
-        "method":"DELETE",
-        "requestUri":"/clusters/{name}/delete_worker"
-      },
-      "input":{"shape":"DeleteWorkerRequest"},
-      "output":{"shape":"DeleteWorkerResponse"},
-      "documentation":"<p>Delete Kubernetes worker.</p>"
-    },
     "DescribeCluster":{
       "name":"DescribeCluster",
       "http":{
@@ -195,59 +185,130 @@
       "output":{"shape":"ListClustersResponse"},
       "documentation":"<p>Lists Kubernetes clusters.</p>"
     },
-    "ResizeCluster":{
-      "name":"ResizeCluster",
+    "CreateNodegroup":{
+      "name":"CreateNodegroup",
       "http":{
         "method":"POST",
-        "requestUri":"/clusters/{name}/resize"
+        "requestUri":"/clusters/{name}/node-groups"
       },
-      "input":{"shape":"ResizeClusterRequest"},
-      "output":{"shape":"ResizeClusterResponse"},
-      "documentation":"<p>Resizes Kubernetes clusters.</p>"
+      "input":{"shape":"CreateNodegroupRequest"},
+      "output":{"shape":"CreateNodegroupResponse"},
+      "errors":[
+        {"shape":"ResourceInUseException"},
+        {"shape":"ResourceLimitExceededException"},
+        {"shape":"InvalidRequestException"},
+        {"shape":"InvalidParameterException"},
+        {"shape":"ClientException"},
+        {"shape":"ServerException"},
+        {"shape":"ServiceUnavailableException"}
+      ],
+      "documentation":"<p>Creates a managed node group for an Amazon EKS cluster. You can only create a node group for your cluster that is equal to the current Kubernetes version for the cluster. All node groups are created with the latest AMI release version for the respective minor Kubernetes version of the cluster, unless you deploy a custom AMI using a launch template. For more information about using launch templates, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html\">Launch template support</a>.</p> <p>An Amazon EKS managed node group is an Amazon EC2 Auto Scaling group and associated Amazon EC2 instances that are managed by Amazon Web Services for an Amazon EKS cluster. Each node group uses a version of the Amazon EKS optimized Amazon Linux 2 AMI. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html\">Managed Node Groups</a> in the <i>Amazon EKS User Guide</i>. </p>"
     },
-    "ModifyCertAutoUpdate":{
-      "name":"ModifyCertAutoUpdate",
+    "DescribeNodegroup":{
+      "name":"DescribeNodegroup",
+      "http":{
+        "method":"GET",
+        "requestUri":"/clusters/{name}/node-groups/{nodegroupName}"
+      },
+      "input":{"shape":"DescribeNodegroupRequest"},
+      "output":{"shape":"DescribeNodegroupResponse"},
+      "errors":[
+        {"shape":"InvalidParameterException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ClientException"},
+        {"shape":"ServerException"},
+        {"shape":"ServiceUnavailableException"}
+      ],
+      "documentation":"<p>Returns descriptive information about an Amazon EKS node group.</p>"
+    },
+    "ListNodegroups":{
+      "name":"ListNodegroups",
+      "http":{
+        "method":"GET",
+        "requestUri":"/clusters/{name}/node-groups"
+      },
+      "input":{"shape":"ListNodegroupsRequest"},
+      "output":{"shape":"ListNodegroupsResponse"},
+      "errors":[
+        {"shape":"InvalidParameterException"},
+        {"shape":"ClientException"},
+        {"shape":"ServerException"},
+        {"shape":"ServiceUnavailableException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Lists the Amazon EKS managed node groups associated with the specified cluster in your Amazon Web Services account in the specified Region. Self-managed node groups are not listed.</p>"
+    },
+    "UpdateClusterConfig":{
+      "name":"UpdateClusterConfig",
       "http":{
         "method":"POST",
-        "requestUri":"/clusters/{name}/modify_auto_update_certificates"
+        "requestUri":"/clusters/{name}/update-config"
       },
-      "input":{"shape":"ModifyCertAutoUpdateRequest"},
-      "output":{"shape":"ModifyCertAutoUpdateResponse"},
-      "documentation":"<p>Toggle certificate autoupdate.</p>"
+      "input":{"shape":"UpdateClusterConfigRequest"},
+      "output":{"shape":"UpdateClusterConfigResponse"},
+      "errors":[
+        {"shape":"InvalidParameterException"},
+        {"shape":"ClientException"},
+        {"shape":"ServerException"},
+        {"shape":"ResourceInUseException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InvalidRequestException"}
+      ],
+      "documentation":"<p>Updates an Amazon EKS cluster configuration. Your cluster continues to function during the update. The response output includes an update ID that you can use to track the status of your cluster update with the <a>DescribeUpdate</a> API operation.</p> <p>You can use this API operation to enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html\">Amazon EKS Cluster Control Plane Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note> <p>CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see <a href=\"http://aws.amazon.com/cloudwatch/pricing/\">CloudWatch Pricing</a>.</p> </note> <p>You can also use this API operation to enable or disable public and private access to your cluster's Kubernetes API server endpoint. By default, public access is enabled, and private access is disabled. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html\">Amazon EKS cluster endpoint access control</a> in the <i> <i>Amazon EKS User Guide</i> </i>. </p> <important> <p>You can't update the subnets or security group IDs for an existing cluster.</p> </important> <p>Cluster updates are asynchronous, and they should finish within a few minutes. During an update, the cluster status moves to <code>UPDATING</code> (this status transition is eventually consistent). When the update is complete (either <code>Failed</code> or <code>Successful</code>), the cluster status moves to <code>Active</code>.</p>"
     },
-    "ModifySecurityGroups":{
-      "name":"ModifySecurityGroups",
+    "UpdateNodegroupConfig":{
+      "name":"UpdateNodegroupConfig",
       "http":{
         "method":"POST",
-        "requestUri":"/clusters/{name}/modify_security_groups"
+        "requestUri":"/clusters/{name}/node-groups/{nodegroupName}/update-config"
       },
-      "input":{"shape":"ModifySecurityGroupsRequest"},
-      "output":{"shape":"ModifySecurityGroupsResponse"},
-      "documentation":"<p>Modify Kubernetes clusters.</p>"
+      "input":{"shape":"UpdateNodegroupConfigRequest"},
+      "output":{"shape":"UpdateNodegroupConfigResponse"},
+      "errors":[
+        {"shape":"InvalidParameterException"},
+        {"shape":"ClientException"},
+        {"shape":"ServerException"},
+        {"shape":"ResourceInUseException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InvalidRequestException"}
+      ],
+      "documentation":"<p>Updates an Amazon EKS managed node group configuration. Your node group continues to function during the update. The response output includes an update ID that you can use to track the status of your node group update with the <a>DescribeUpdate</a> API operation. Currently you can update the Kubernetes labels for a node group or the scaling configuration.</p>"
     },
-    "ModifyUserData": {
-      "name": "ModifyUserData",
-      "http": {
-        "method": "POST",
-        "requestUri": "/clusters/{name}/modify_user_data"
+    "UpdateNodegroupVersion":{
+      "name":"UpdateNodegroupVersion",
+      "http":{
+        "method":"POST",
+        "requestUri":"/clusters/{name}/node-groups/{nodegroupName}/update-version"
       },
-      "input": {"shape": "ModifyUserDataRequest"},
-      "output": {"shape": "ModifyUserDataResponse"},
-      "documentation": "<p>Modify Kubernetes clusters.</p>"
+      "input":{"shape":"UpdateNodegroupVersionRequest"},
+      "output":{"shape":"UpdateNodegroupVersionResponse"},
+      "errors":[
+        {"shape":"InvalidParameterException"},
+        {"shape":"ClientException"},
+        {"shape":"ServerException"},
+        {"shape":"ResourceInUseException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InvalidRequestException"}
+      ],
+      "documentation":"<p>Updates the Kubernetes version or AMI version of an Amazon EKS managed node group.</p> <p>You can update a node group using a launch template only if the node group was originally deployed with a launch template. If you need to update a custom AMI in a node group that was deployed with a launch template, then update your custom AMI, specify the new ID in a new version of the launch template, and then update the node group to the new version of the launch template.</p> <p>If you update without a launch template, then you can update to the latest available AMI version of a node group's current Kubernetes version by not specifying a Kubernetes version in the request. You can update to the latest AMI version of your cluster's current Kubernetes version by specifying your cluster's Kubernetes version in the request. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html\">Amazon EKS optimized Amazon Linux 2 AMI versions</a> in the <i>Amazon EKS User Guide</i>.</p> <p>You cannot roll back a node group to an earlier Kubernetes version or AMI version.</p> <p>When a node in a managed node group is terminated due to a scaling action or update, the pods in that node are drained first. Amazon EKS attempts to drain the nodes gracefully and will fail if it is unable to do so. You can <code>force</code> the update if Amazon EKS is unable to drain the nodes as a result of a pod disruption budget issue.</p>"
     },
-    "ModifyWorkersInstanceType": {
-      "name": "ModifyWorkersInstanceType",
-      "http": {
-        "method": "POST",
-        "requestUri": "/clusters/{name}/modify_workers_instance_type"
+    "DeleteNodegroup":{
+      "name":"DeleteNodegroup",
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/clusters/{name}/node-groups/{nodegroupName}"
       },
-      "input": {
-        "shape": "ModifyWorkersInstanceTypeRequest"
-      },
-      "output": {
-        "shape": "ModifyWorkersInstanceTypeResponse"
-      },
-      "documentation": "<p>Modify Kubernetes clusters.</p>"
+      "input":{"shape":"DeleteNodegroupRequest"},
+      "output":{"shape":"DeleteNodegroupResponse"},
+      "errors":[
+        {"shape":"ResourceInUseException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InvalidParameterException"},
+        {"shape":"ClientException"},
+        {"shape":"ServerException"},
+        {"shape":"ServiceUnavailableException"}
+      ],
+      "documentation":"<p>Deletes an Amazon EKS node group for a cluster.</p>"
     }
   },
   "shapes":{
@@ -986,6 +1047,115 @@
       "min":1,
       "pattern":"^[0-9A-Za-z][A-Za-z0-9\\-_]*"
     },
+    "Cluster":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"String",
+          "documentation":"<p>The name of the cluster.</p>"
+        },
+        "createdAt":{
+          "shape":"Timestamp",
+          "documentation":"<p>The Unix epoch timestamp in seconds for when the cluster was created.</p>"
+        },
+        "remoteAccessConfig":{
+          "shape":"RemoteAccessConfig",
+          "documentation":"<p>An object representing the remote access configuration for the Kubernetes cluster.</p>"
+        },
+        "version":{
+          "shape":"String",
+          "documentation":"<p>The Kubernetes server version for the cluster.</p>"
+        },
+        "endpoint":{
+          "shape":"String",
+          "documentation":"<p>The endpoint for your Kubernetes API server.</p>"
+        },
+        "resourcesVpcConfig":{
+          "shape":"VpcConfigResponse",
+          "documentation":"<p>The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to work properly with Kubernetes. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html\">Cluster VPC Considerations</a> and <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html\">Cluster Security Group Considerations</a> in the <i>Amazon EKS User Guide</i>.</p>"
+        },
+        "kubernetesNetworkConfig":{
+          "shape":"KubernetesNetworkConfigResponse",
+          "documentation":"<p>The Kubernetes network configuration for the cluster.</p>"
+        },
+        "logging":{
+          "shape":"Logging",
+          "documentation":"<p>The logging configuration for your cluster.</p>"
+        },
+        "status":{
+          "shape":"ClusterStatus",
+          "documentation":"<p>The current status of the cluster.</p>"
+        },
+        "certificateAuthority":{
+          "shape":"Certificate",
+          "documentation":"<p>The <code>certificate-authority-data</code> for your cluster.</p>"
+        },
+        "clientRequestToken":{
+          "shape":"String",
+          "documentation":"<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>"
+        },
+        "platformVersion":{
+          "shape":"String",
+          "documentation":"<p>The platform version of your Amazon EKS cluster. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html\">Platform Versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p>"
+        },
+        "tags":{
+          "shape":"TagMap",
+          "documentation":"<p>The metadata that you apply to the cluster to assist with categorization and organization. Each tag consists of a key and an optional value. You define both. Cluster tags do not propagate to any other resources associated with the cluster.</p>"
+        },
+        "health":{
+          "shape":"ClusterHealth",
+          "documentation":"<p>An object representing the health of your local Amazon EKS cluster on an Amazon Web Services Outpost. This object isn't available for clusters on the Amazon Web Services cloud.</p>"
+        },
+        "legacyClusterParams":{
+          "shape":"legacyClusterParams",
+          "documentation":"<p>Legacy cluster parameters</p>"
+        }
+      },
+      "documentation":"<p>An object representing an EKS cluster.</p>"
+    },
+    "ClusterHealth":{
+      "type":"structure",
+      "members":{
+        "issues":{
+          "shape":"ClusterIssueList",
+          "documentation":"<p>An object representing the health issues of your local Amazon EKS cluster on an Amazon Web Services Outpost.</p>"
+        }
+      },
+      "documentation":"<p>An object representing the health of your local Amazon EKS cluster on an Amazon Web Services Outpost. You can't use this API with an Amazon EKS cluster on the Amazon Web Services cloud. </p>"
+    },
+    "ClusterIssue":{
+      "type":"structure",
+      "members":{
+        "code":{
+          "shape":"ClusterIssueCode",
+          "documentation":"<p>The error code of the issue.</p>"
+        },
+        "message":{
+          "shape":"String",
+          "documentation":"<p>A description of the issue.</p>"
+        },
+        "resourceIds":{
+          "shape":"StringList",
+          "documentation":"<p>The resource IDs that the issue relates to.</p>"
+        }
+      },
+      "documentation":"<p>An issue with your local Amazon EKS cluster on an Amazon Web Services Outpost. You can't use this API with an Amazon EKS cluster on the Amazon Web Services cloud.</p>"
+    },
+    "ClusterIssueCode":{
+      "type":"string",
+      "enum":[
+        "AccessDenied",
+        "ClusterUnreachable",
+        "ConfigurationConflict",
+        "InternalFailure",
+        "ResourceLimitExceeded",
+        "ResourceNotFound"
+      ]
+    },
+    "ClusterIssueList":{
+      "type":"list",
+      "member":{"shape":"ClusterIssue"}
+    },
     "ClusterStatus":{
       "type":"string",
       "enum":[
@@ -996,6 +1166,71 @@
         "UPDATING",
         "PENDING"
       ]
+    },
+    "CreateClusterRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "resourcesVpcConfig",
+        "version"
+      ],
+      "members":{
+        "name":{
+          "shape":"ClusterName",
+          "documentation":"<p>The unique name to give to your cluster.</p>"
+        },
+        "version":{
+          "shape":"String",
+          "documentation":"<p>The desired Kubernetes version for your cluster. If you don't specify a value here, the default version available in Amazon EKS is used.</p> <note> <p>The default version might not be the latest version available.</p> </note>"
+        },
+        "roleArn":{
+          "shape":"String",
+          "documentation":"<p>A valid Amazon Resource Name (ARN) that identifies an IAM role."
+        },
+        "remoteAccessConfig":{
+          "shape":"RemoteAccessConfig",
+          "documentation":"<p>An object representing the remote access configuration for the Kubernetes cluster.</p>",
+          "deprecated":true
+        },
+        "resourcesVpcConfig":{
+          "shape":"VpcConfigRequest",
+          "documentation":"<p>The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific requirements to work properly with Kubernetes. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html\">Cluster VPC Considerations</a> and <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html\">Cluster Security Group Considerations</a> in the <i>Amazon EKS User Guide</i>. You must specify at least two subnets. You can specify up to five security groups. However, we recommend that you use a dedicated security group for your cluster control plane.</p>"
+        },
+        "kubernetesNetworkConfig":{
+          "shape":"KubernetesNetworkConfigRequest",
+          "documentation":"<p>The Kubernetes network configuration for the cluster.</p>"
+        },
+        "logging":{
+          "shape":"Logging",
+          "documentation":"<p>Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html\">Amazon EKS Cluster control plane logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note> <p>CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see <a href=\"http://aws.amazon.com/cloudwatch/pricing/\">CloudWatch Pricing</a>.</p> </note>"
+        },
+        "clientRequestToken":{
+          "shape":"String",
+          "documentation":"<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>",
+          "idempotencyToken":true
+        },
+        "platformVersion":{
+          "shape":"String",
+          "documentation":"<p>The platform version of your Amazon EKS cluster. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html\">Platform Versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p>"
+        },
+        "tags":{
+          "shape":"TagMap",
+          "documentation":"<p>The metadata to apply to the cluster to assist with categorization and organization. Each tag consists of a key and an optional value. You define both.</p>"
+        },
+        "legacyClusterParams":{
+          "shape":"legacyClusterParams",
+          "documentation":"<p>Legacy cluster parameters that are required to start control plane</p>"
+        }
+      }
+    },
+    "CreateClusterResponse":{
+      "type":"structure",
+      "members":{
+        "cluster":{
+          "shape":"Cluster",
+          "documentation":"<p>The full description of your new cluster.</p>"
+        }
+      }
     },
     "InstanceList":{
       "type":"list",
@@ -1426,8 +1661,7 @@
       "required":[
         "clusterName",
         "nodegroupName",
-        "subnets",
-        "nodeRole"
+        "subnets"
       ],
       "members":{
         "clusterName":{
@@ -1436,14 +1670,33 @@
           "location":"uri",
           "locationName":"name"
         },
+        "instanceTypes":{
+          "shape":"StringList",
+          "documentation":"<p>Specify the instance types for a node group. If you specify a GPU instance type, make sure to also specify an applicable GPU AMI type with the <code>amiType</code> parameter. If you specify <code>launchTemplate</code>, then you can specify zero or one instance type in your launch template <i>or</i> you can specify 0-20 instance types for <code>instanceTypes</code>. If however, you specify an instance type in your launch template <i>and</i> specify any <code>instanceTypes</code>, the node group deployment will fail. If you don't specify an instance type in a launch template or for <code>instanceTypes</code>, then <code>t3.medium</code> is used, by default. If you specify <code>Spot</code> for <code>capacityType</code>, then we recommend specifying multiple values for <code>instanceTypes</code>. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html#managed-node-group-capacity-types\">Managed node group capacity types</a> and <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html\">Launch template support</a> in the <i>Amazon EKS User Guide</i>.</p>"
+        },
         "nodegroupName":{
           "shape":"String",
           "documentation":"<p>The unique name to give your node group.</p>"
+        },
+        "taints":{
+          "shape":"taintsList",
+          "documentation":"<p>The Kubernetes taints to be applied to the nodes in the node group when they are created. Effect is one of <code>No_Schedule</code>, <code>Prefer_No_Schedule</code>, or <code>No_Execute</code>. Kubernetes taints can be used together with tolerations to control how workloads are scheduled to your nodes. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html\">Node taints on managed node groups</a>.</p>"
+        },
+        "remoteAccess":{
+          "shape":"RemoteAccessConfig",
+          "documentation":"<p>An object representing the remote access configuration for the Kubernetes node group.</p>"
+        },
+        "diskSize":{
+          "shape":"BoxedInteger",
+          "documentation":"<p>The root device disk size (in GiB) for your node group instances. The default disk size is 20 GiB for Linux and Bottlerocket. The default disk size is 50 GiB for Windows. If you specify <code>launchTemplate</code>, then don't specify <code>diskSize</code>, or the node group deployment will fail. For more information about using launch templates with Amazon EKS, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html\">Launch template support</a> in the <i>Amazon EKS User Guide</i>.</p>"
         },
         "scalingConfig":{
           "shape":"NodegroupScalingConfig",
           "documentation":"<p>The scaling configuration details for the Auto Scaling group that is created for your node group.</p>"
         },
+        "updateConfig":{
+          "shape":"NodegroupUpdateConfig",
+          "documentation":"<p>The node group update configuration.</p>"
         "diskSize":{
           "shape":"BoxedInteger",
           "documentation":"<p>The root device disk size (in GiB) for your node group instances. The default disk size is 20 GiB for Linux and Bottlerocket. The default disk size is 50 GiB for Windows. If you specify <code>launchTemplate</code>, then don't specify <code>diskSize</code>, or the node group deployment will fail. For more information about using launch templates with Amazon EKS, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html\">Customizing managed nodes with launch templates</a> in the <i>Amazon EKS User Guide</i>.</p>"
@@ -2260,10 +2513,6 @@
     },
     "DisassociateIdentityProviderConfigRequest":{
       "type":"structure",
-      "required":[
-        "clusterName",
-        "identityProviderConfig"
-      ],
       "members":{
         "clusterName":{
           "shape":"String",
@@ -2604,15 +2853,9 @@
       "error":{"httpStatusCode":400},
       "exception":true
     },
-    "Identity":{
-      "type":"structure",
-      "members":{
-        "oidc":{
-          "shape":"OIDC",
-          "documentation":"<p>An object representing the <a href=\"https://openid.net/connect/\">OpenID Connect</a> identity provider information.</p>"
-        }
-      },
-      "documentation":"<p>An object representing an identity provider.</p>"
+    "IncludeClustersList":{
+      "type":"list",
+      "member":{"shape":"String"}
     },
     "IdentityProviderConfig":{
       "type":"structure",
@@ -2917,6 +3160,10 @@
     "KubernetesNetworkConfigRequest":{
       "type":"structure",
       "members":{
+        "podIpv4Cidr":{
+          "shape":"String",
+          "documentation":"<p>The CIDR block to assign Kubernetes service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the 10.100.0.0/16 or 172.20.0.0/16 CIDR blocks. We recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. The block must meet the following requirements:</p> <ul> <li> <p>Within one of the following private IP address blocks: 10.0.0.0/8, 172.16.0.0.0/12, or 192.168.0.0/16.</p> </li> <li> <p>Doesn't overlap with any CIDR block assigned to the VPC that you selected for VPC.</p> </li> <li> <p>Between /24 and /12.</p> </li> </ul> <important> <p>You can only specify a custom CIDR block when you create a cluster and can't change this value once the cluster is created.</p> </important>"
+        },
         "serviceIpv4Cidr":{
           "shape":"String",
           "documentation":"<p>Don't specify a value if you select <code>ipv6</code> for <b>ipFamily</b>. The CIDR block to assign Kubernetes service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the <code>10.100.0.0/16</code> or <code>172.20.0.0/16</code> CIDR blocks. We recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. The block must meet the following requirements:</p> <ul> <li> <p>Within one of the following private IP address blocks: <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, or <code>192.168.0.0/16</code>.</p> </li> <li> <p>Doesn't overlap with any CIDR block assigned to the VPC that you selected for VPC.</p> </li> <li> <p>Between <code>/24</code> and <code>/12</code>.</p> </li> </ul> <important> <p>You can only specify a custom CIDR block when you create a cluster. You can't change this value after the cluster is created.</p> </important>"
@@ -2931,6 +3178,10 @@
     "KubernetesNetworkConfigResponse":{
       "type":"structure",
       "members":{
+        "podIpv4Cidr":{
+          "shape":"String",
+          "documentation":"<p>The CIDR block to assign Kubernetes service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the 10.100.0.0/16 or 172.20.0.0/16 CIDR blocks. We recommend that you specify a block that does not overlap with resources in other networks that are peered or connected to your VPC. The block must meet the following requirements:</p> <ul> <li> <p>Within one of the following private IP address blocks: 10.0.0.0/8, 172.16.0.0.0/12, or 192.168.0.0/16.</p> </li> <li> <p>Doesn't overlap with any CIDR block assigned to the VPC that you selected for VPC.</p> </li> <li> <p>Between /24 and /12.</p> </li> </ul> <important> <p>You can only specify a custom CIDR block when you create a cluster and can't change this value once the cluster is created.</p> </important>"
+        },
         "serviceIpv4Cidr":{
           "shape":"String",
           "documentation":"<p>The CIDR block that Kubernetes <code>Pod</code> and <code>Service</code> object IP addresses are assigned from. Kubernetes assigns addresses from an <code>IPv4</code> CIDR block assigned to a subnet that the node is in. If you didn't specify a CIDR block when you created the cluster, then Kubernetes assigns addresses from either the <code>10.100.0.0/16</code> or <code>172.20.0.0/16</code> CIDR blocks. If this was specified, then it was specified when the cluster was created and it can't be changed.</p>"
@@ -3051,7 +3302,9 @@
     },
     "ListAddonsRequest":{
       "type":"structure",
-      "required":["clusterName"],
+      "required":[
+        "masterConfig"
+      ],
       "members":{
         "clusterName":{
           "shape":"ClusterName",
@@ -3596,21 +3849,9 @@
           "shape":"String",
           "documentation":"<p>The name associated with an Amazon EKS managed node group.</p>"
         },
-        "nodegroupArn":{
-          "shape":"String",
-          "documentation":"<p>The Amazon Resource Name (ARN) associated with the managed node group.</p>"
-        },
         "clusterName":{
           "shape":"String",
           "documentation":"<p>The name of your cluster.</p>"
-        },
-        "version":{
-          "shape":"String",
-          "documentation":"<p>The Kubernetes version of the managed node group.</p>"
-        },
-        "releaseVersion":{
-          "shape":"String",
-          "documentation":"<p>If the node group was deployed using a launch template with a custom AMI, then this is the AMI ID that was specified in the launch template. For node groups that weren't deployed using a launch template, this is the version of the Amazon EKS optimized AMI that the node group was deployed with.</p>"
         },
         "createdAt":{
           "shape":"Timestamp",
@@ -3624,6 +3865,10 @@
           "shape":"NodegroupStatus",
           "documentation":"<p>The current status of the managed node group.</p>"
         },
+        "remoteAccess":{
+          "shape":"RemoteAccessConfig",
+          "documentation":"<p>An object representing the remote access configuration for the Kubernetes node group.</p>"
+        },
         "capacityType":{
           "shape":"CapacityTypes",
           "documentation":"<p>The capacity type of your managed node group.</p>"
@@ -3631,10 +3876,6 @@
         "scalingConfig":{
           "shape":"NodegroupScalingConfig",
           "documentation":"<p>The scaling configuration details for the Auto Scaling group that is associated with your node group.</p>"
-        },
-        "instanceTypes":{
-          "shape":"StringList",
-          "documentation":"<p>If the node group wasn't deployed with a launch template, then this is the instance type that is associated with the node group. If the node group was deployed with a launch template, then this is <code>null</code>.</p>"
         },
         "subnets":{
           "shape":"StringList",
@@ -3660,13 +3901,13 @@
           "shape":"taintsList",
           "documentation":"<p>The Kubernetes taints to be applied to the nodes in the node group when they are created. Effect is one of <code>No_Schedule</code>, <code>Prefer_No_Schedule</code>, or <code>No_Execute</code>. Kubernetes taints can be used together with tolerations to control how workloads are scheduled to your nodes. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html\">Node taints on managed node groups</a>.</p>"
         },
+        "taints":{
+          "shape":"taintsList",
+          "documentation":"<p>The Kubernetes taints to be applied to the nodes in the node group when they are created. Effect is one of <code>No_Schedule</code>, <code>Prefer_No_Schedule</code>, or <code>No_Execute</code>. Kubernetes taints can be used together with tolerations to control how workloads are scheduled to your nodes. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html\">Node taints on managed node groups</a>.</p>"
+        },
         "resources":{
           "shape":"NodegroupResources",
           "documentation":"<p>The resources associated with the node group, such as Auto Scaling groups and security groups for remote access.</p>"
-        },
-        "diskSize":{
-          "shape":"BoxedInteger",
-          "documentation":"<p>If the node group wasn't deployed with a launch template, then this is the disk size in the node group configuration. If the node group was deployed with a launch template, then this is <code>null</code>.</p>"
         },
         "health":{
           "shape":"NodegroupHealth",
@@ -3778,8 +4019,31 @@
         "DELETING",
         "CREATE_FAILED",
         "DELETE_FAILED",
-        "DEGRADED"
+        "DEGRADED",
+        "CLAIMED",
+        "DELETED",
+        "PENDING",
+        "PROVISIONING"
       ]
+    },
+    "NodegroupUpdateConfig":{
+      "type":"structure",
+      "members":{
+        "maxUnavailable":{
+          "shape":"NonZeroInteger",
+          "documentation":"<p>The maximum number of nodes unavailable at once during a version update. Nodes will be updated in parallel. This value or <code>maxUnavailablePercentage</code> is required to have a value.The maximum number is 100.</p>"
+        },
+        "maxUnavailablePercentage":{
+          "shape":"PercentCapacity",
+          "documentation":"<p>The maximum percentage of nodes unavailable during a version update. This percentage of nodes will be updated in parallel, up to 100 nodes at once. This value or <code>maxUnavailable</code> is required to have a value.</p>"
+        }
+      },
+      "documentation":"<p>The node group update configuration.</p>"
+    },
+    "NonZeroInteger":{
+      "type":"integer",
+      "box":true,
+      "min":1
     },
     "NodegroupUpdateConfig":{
       "type":"structure",
@@ -4089,6 +4353,18 @@
       "type":"structure",
       "members":{
         "cluster":{"shape":"Cluster"}
+      }
+    },
+    "PercentCapacity":{
+      "type":"integer",
+      "box":true,
+      "max":100,
+      "min":1
+    },
+    "placementGroupsConfig":{
+      "type":"structure",
+      "members":{
+        "usePlacementGroups":{"shape":"Boolean"}
       }
     },
     "RemoteAccessConfig":{
@@ -4645,7 +4921,9 @@
           "location":"uri",
           "locationName":"name"
         },
-        "resourcesVpcConfig":{"shape":"VpcConfigRequest"},
+        "resourcesVpcConfig":{
+          "shape":"VpcConfigRequest"
+        },
         "logging":{
           "shape":"Logging",
           "documentation":"<p>Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html\">Amazon EKS cluster control plane logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note> <p>CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see <a href=\"http://aws.amazon.com/cloudwatch/pricing/\">CloudWatch Pricing</a>.</p> </note>"
@@ -4773,6 +5051,10 @@
         "labels":{
           "shape":"UpdateLabelsPayload",
           "documentation":"<p>The Kubernetes <code>labels</code> to apply to the nodes in the node group after the update.</p>"
+        },
+        "taints":{
+          "shape":"UpdateTaintsPayload",
+          "documentation":"<p>The Kubernetes taints to be applied to the nodes in the node group after the update. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html\">Node taints on managed node groups</a>.</p>"
         },
         "taints":{
           "shape":"UpdateTaintsPayload",
@@ -4996,6 +5278,13 @@
         }
       },
       "documentation":"<p>This value indicates if extended support is enabled or disabled for the cluster.</p> <p> <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html\">Learn more about EKS Extended Support in the EKS User Guide.</a> </p>"
+    },
+    "userDataConfig":{
+      "type":"structure",
+      "members":{
+        "userData":{"shape":"String"},
+        "userDataContentType":{"shape":"String"}
+      }
     },
     "VpcConfigRequest":{
       "type":"structure",
