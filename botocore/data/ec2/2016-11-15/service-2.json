@@ -9503,7 +9503,6 @@
     "AttachVolumeRequest":{
       "type":"structure",
       "required":[
-        "Device",
         "InstanceId",
         "VolumeId"
       ],
@@ -9750,7 +9749,7 @@
     },
     "AuthorizeSecurityGroupEgressRequest":{
       "type":"structure",
-      "required":["GroupId"],
+      "required":["IpPermissions"],
       "members":{
         "TagSpecifications":{
           "shape":"TagSpecificationList",
@@ -9767,7 +9766,17 @@
           "documentation":"<p>The ID of the security group.</p>",
           "locationName":"groupId"
         },
-        "SourceSecurityGroupName":{
+        "GroupName":{
+          "shape":"SecurityGroupName",
+          "documentation":"<p>The name of the security group.</p>",
+          "locationName":"groupName"
+        },
+        "IpPermissions":{
+          "shape":"IpPermissionList",
+          "documentation":"<p>The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in the same set of permissions.</p>",
+          "locationName":"ipPermissions"
+        },
+        "CidrIp":{
           "shape":"String",
           "documentation":"<p>Not supported. Use IP permissions instead.</p>",
           "locationName":"sourceSecurityGroupName"
@@ -13654,8 +13663,8 @@
     "CreateCoipCidrRequest":{
       "type":"structure",
       "required":[
-        "Cidr",
-        "CoipPoolId"
+        "BgpAsn",
+        "Type"
       ],
       "members":{
         "Cidr":{
@@ -13816,7 +13825,6 @@
     },
     "CreateDhcpOptionsRequest":{
       "type":"structure",
-      "required":["DhcpConfigurations"],
       "members":{
         "DhcpConfigurations":{
           "shape":"NewDhcpConfigurationList",
@@ -15298,7 +15306,6 @@
     },
     "CreateNetworkInterfaceRequest":{
       "type":"structure",
-      "required":["SubnetId"],
       "members":{
         "Ipv4Prefixes":{
           "shape":"Ipv4PrefixList",
@@ -41037,10 +41044,6 @@
           "documentation":"<p>The IPv6 address ranges.</p>",
           "locationName":"ipv6Ranges"
         },
-        "Groups":{
-          "shape":"GroupList",
-          "locationName":"groups"
-        },
         "PrefixListIds":{
           "shape":"PrefixListIdList",
           "documentation":"<p>The prefix list IDs.</p>",
@@ -42819,38 +42822,6 @@
       "type":"list",
       "member":{
         "shape":"Ipv6Range",
-        "locationName":"item"
-      }
-    },
-    "Group":{
-      "type":"structure",
-      "members":{
-        "UserId":{
-          "shape":"String",
-          "documentation":"The ID of an account",
-          "locationName":"userId"
-        },
-        "GroupId":{
-          "shape":"String",
-          "documentation":"The ID of the security group",
-          "locationName":"groupId"
-        },
-        "GroupName":{
-          "shape":"String",
-          "documentation":"The name of the security group",
-          "locationName":"groupName"
-        },
-        "Description":{
-          "shape":"String",
-          "documentation":"<p>A description for the security group rule that references this IPv6 address range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>",
-          "locationName":"description"
-        }
-      }
-    },
-    "GroupList":{
-      "type":"list",
-      "member":{
-        "shape":"Group",
         "locationName":"item"
       }
     },
@@ -55803,7 +55774,7 @@
     },
     "RevokeSecurityGroupEgressRequest":{
       "type":"structure",
-      "required":["GroupId"],
+      "required":["IpPermissions"],
       "members":{
         "SecurityGroupRuleIds":{
           "shape":"SecurityGroupRuleIdList",
@@ -55820,7 +55791,17 @@
           "documentation":"<p>The ID of the security group.</p>",
           "locationName":"groupId"
         },
-        "SourceSecurityGroupName":{
+        "GroupName": {
+          "shape": "SecurityGroupName",
+          "documentation": "<p>The name of the security group.</p>",
+          "locationName": "groupName"
+        },
+        "IpPermissions":{
+          "shape":"IpPermissionList",
+          "documentation":"<p>The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in the same set of permissions.</p>",
+          "locationName":"ipPermissions"
+        },
+        "CidrIp":{
           "shape":"String",
           "documentation":"<p>Not supported. Use a set of IP permissions to specify a destination security group.</p>",
           "locationName":"sourceSecurityGroupName"
@@ -56487,6 +56468,11 @@
           "shape":"LicenseSpecificationListRequest",
           "documentation":"<p>The license configurations.</p>",
           "locationName":"LicenseSpecification"
+        },
+        "RootDeviceName":{
+          "shape":"String",
+          "documentation":"<p>The device name of the root device volume (for example, <code>/dev/sda1</code>).</p>",
+          "locationName":"rootDeviceName"
         },
         "MetadataOptions":{
           "shape":"InstanceMetadataOptionsRequest",
