@@ -54931,6 +54931,11 @@
           "documentation":"<p>The size of the volume, in GiB.</p>",
           "locationName":"volumeSize"
         },
+        "VolumeSizeInBytes": {
+          "shape": "Integer",
+          "documentation": "<p>The size of the volume, in Bytes.</p>",
+          "locationName": "volumeSizeInBytes"
+        },
         "OwnerAlias":{
           "shape":"String",
           "documentation":"<p>The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the user-configured Amazon Web Services account alias set using the IAM console.</p>",
@@ -61139,6 +61144,11 @@
           "shape":"Integer",
           "documentation":"<p>The size of the volume, in GiBs.</p>",
           "locationName":"size"
+        },
+        "SizeInBytes": {
+          "shape": "Integer",
+          "documentation": "<p>The size of the volume, in Bytes.</p>",
+          "locationName": "sizeInBytes"
         },
         "SnapshotId":{
           "shape":"String",
