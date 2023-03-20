@@ -712,7 +712,7 @@
         {"shape":"NoSuchKey"}
       ],
       "documentationUrl":"http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html",
-      "documentation":"<note> <p>This operation is not supported for directory buckets.</p> </note> <p>Returns the access control list (ACL) of an object. To use this operation, you must have <code>s3:GetObjectAcl</code> permissions or <code>READ_ACP</code> access to the object. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#acl-access-policy-permission-mapping\">Mapping of ACL permissions and access policy permissions</a> in the <i>Amazon S3 User Guide</i> </p> <p>This functionality is not supported for Amazon S3 on Outposts.</p> <p>By default, GET returns ACL information about the current version of an object. To return ACL information about a different version, use the versionId subresource.</p> <note> <p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, requests to read ACLs are still supported and return the <code>bucket-owner-full-control</code> ACL with the owner being the account that created the bucket. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html\"> Controlling object ownership and disabling ACLs</a> in the <i>Amazon S3 User Guide</i>.</p> </note> <p>The following operations are related to <code>GetObjectAcl</code>:</p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html\">GetObject</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html\">GetObjectAttributes</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html\">DeleteObject</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html\">PutObject</a> </p> </li> </ul>"
+      "documentation":"<p>Returns the access control list (ACL) of an object. To use this operation, you must have <code>s3:GetObjectAcl</code> permissions or <code>READ_ACP</code> access to the object. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#acl-access-policy-permission-mapping\">Mapping of ACL permissions and access policy permissions</a> in the <i>Amazon S3 User Guide</i> </p> <p>This action is not supported by Amazon S3 on Outposts.</p> <p> <b>Versioning</b> </p> <p>By default, GET returns ACL information about the current version of an object. To return ACL information about a different version, use the versionId subresource.</p> <note> <p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, requests to read ACLs are still supported and return the <code>bucket-owner-full-control</code> ACL with the owner being the account that created the bucket. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html\"> Controlling object ownership and disabling ACLs</a> in the <i>Amazon S3 User Guide</i>.</p> </note> <p>The following operations are related to <code>GetObjectAcl</code>:</p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html\">GetObject</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html\">GetObjectAttributes</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html\">DeleteObject</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html\">PutObject</a> </p> </li> </ul>"
     },
     "GetObjectAttributes":{
       "name":"GetObjectAttributes",
@@ -725,7 +725,7 @@
       "errors":[
         {"shape":"NoSuchKey"}
       ],
-      "documentation":"<p>Retrieves all the metadata from an object without returning the object itself. This operation is useful if you're interested only in an object's metadata. </p> <p> <code>GetObjectAttributes</code> combines the functionality of <code>HeadObject</code> and <code>ListParts</code>. All of the data returned with each of those individual calls can be returned with a single call to <code>GetObjectAttributes</code>.</p> <note> <p> <b>Directory buckets</b> - For directory buckets, you must make requests for this API operation to the Zonal endpoint. These endpoints support virtual-hosted-style requests in the format <code>https://<i>bucket-name</i>.s3express-<i>zone-id</i>.<i>region-code</i>.amazonaws.com/<i>key-name</i> </code>. Path-style requests are not supported. For more information about endpoints in Availability Zones, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html\">Regional and Zonal endpoints for directory buckets in Availability Zones</a> in the <i>Amazon S3 User Guide</i>. For more information about endpoints in Local Zones, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html\">Available Local Zone for directory buckets</a> in the <i>Amazon S3 User Guide</i>.</p> </note> <dl> <dt>Permissions</dt> <dd> <ul> <li> <p> <b>General purpose bucket permissions</b> - To use <code>GetObjectAttributes</code>, you must have READ access to the object. The permissions that you need to use this operation depend on whether the bucket is versioned. If the bucket is versioned, you need both the <code>s3:GetObjectVersion</code> and <code>s3:GetObjectVersionAttributes</code> permissions for this operation. If the bucket is not versioned, you need the <code>s3:GetObject</code> and <code>s3:GetObjectAttributes</code> permissions. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html\">Specifying Permissions in a Policy</a> in the <i>Amazon S3 User Guide</i>. If the object that you request does not exist, the error Amazon S3 returns depends on whether you also have the <code>s3:ListBucket</code> permission.</p> <ul> <li> <p>If you have the <code>s3:ListBucket</code> permission on the bucket, Amazon S3 returns an HTTP status code <code>404 Not Found</code> (\"no such key\") error.</p> </li> <li> <p>If you don't have the <code>s3:ListBucket</code> permission, Amazon S3 returns an HTTP status code <code>403 Forbidden</code> (\"access denied\") error.</p> </li> </ul> </li> <li> <p> <b>Directory bucket permissions</b> - To grant access to this API operation on a directory bucket, we recommend that you use the <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html\"> <code>CreateSession</code> </a> API operation for session-based authorization. Specifically, you grant the <code>s3express:CreateSession</code> permission to the directory bucket in a bucket policy or an IAM identity-based policy. Then, you make the <code>CreateSession</code> API call on the bucket to obtain a session token. With the session token in your request header, you can make API requests to this operation. After the session token expires, you make another <code>CreateSession</code> API call to generate a new session token for use. Amazon Web Services CLI or SDKs create session and refresh the session token automatically to avoid service interruptions when a session expires. For more information about authorization, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html\"> <code>CreateSession</code> </a>.</p> <p>If the object is encrypted with SSE-KMS, you must also have the <code>kms:GenerateDataKey</code> and <code>kms:Decrypt</code> permissions in IAM identity-based policies and KMS key policies for the KMS key.</p> </li> </ul> </dd> <dt>Encryption</dt> <dd> <note> <p>Encryption request headers, like <code>x-amz-server-side-encryption</code>, should not be sent for <code>HEAD</code> requests if your object uses server-side encryption with Key Management Service (KMS) keys (SSE-KMS), dual-layer server-side encryption with Amazon Web Services KMS keys (DSSE-KMS), or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). The <code>x-amz-server-side-encryption</code> header is used when you <code>PUT</code> an object to S3 and want to specify the encryption method. If you include this header in a <code>GET</code> request for an object that uses these types of keys, you’ll get an HTTP <code>400 Bad Request</code> error. It's because the encryption method can't be changed when you retrieve the object.</p> </note> <p>If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers to provide the encryption key for the server to be able to retrieve the object's metadata. The headers are: </p> <ul> <li> <p> <code>x-amz-server-side-encryption-customer-algorithm</code> </p> </li> <li> <p> <code>x-amz-server-side-encryption-customer-key</code> </p> </li> <li> <p> <code>x-amz-server-side-encryption-customer-key-MD5</code> </p> </li> </ul> <p>For more information about SSE-C, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html\">Server-Side Encryption (Using Customer-Provided Encryption Keys)</a> in the <i>Amazon S3 User Guide</i>.</p> <note> <p> <b>Directory bucket permissions</b> - For directory buckets, there are only two supported options for server-side encryption: server-side encryption with Amazon S3 managed keys (SSE-S3) (<code>AES256</code>) and server-side encryption with KMS keys (SSE-KMS) (<code>aws:kms</code>). We recommend that the bucket's default encryption uses the desired encryption configuration and you don't override the bucket default encryption in your <code>CreateSession</code> requests or <code>PUT</code> object requests. Then, new objects are automatically encrypted with the desired encryption settings. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html\">Protecting data with server-side encryption</a> in the <i>Amazon S3 User Guide</i>. For more information about the encryption overriding behaviors in directory buckets, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-specifying-kms-encryption.html\">Specifying server-side encryption with KMS for new object uploads</a>.</p> </note> </dd> <dt>Versioning</dt> <dd> <p> <b>Directory buckets</b> - S3 Versioning isn't enabled and supported for directory buckets. For this API operation, only the <code>null</code> value of the version ID is supported by directory buckets. You can only specify <code>null</code> to the <code>versionId</code> query parameter in the request.</p> </dd> <dt>Conditional request headers</dt> <dd> <p>Consider the following when using request headers:</p> <ul> <li> <p>If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code> headers are present in the request as follows, then Amazon S3 returns the HTTP status code <code>200 OK</code> and the data requested:</p> <ul> <li> <p> <code>If-Match</code> condition evaluates to <code>true</code>.</p> </li> <li> <p> <code>If-Unmodified-Since</code> condition evaluates to <code>false</code>.</p> </li> </ul> <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p> </li> <li> <p>If both of the <code>If-None-Match</code> and <code>If-Modified-Since</code> headers are present in the request as follows, then Amazon S3 returns the HTTP status code <code>304 Not Modified</code>:</p> <ul> <li> <p> <code>If-None-Match</code> condition evaluates to <code>false</code>.</p> </li> <li> <p> <code>If-Modified-Since</code> condition evaluates to <code>true</code>.</p> </li> </ul> <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p> </li> </ul> </dd> <dt>HTTP Host header syntax</dt> <dd> <p> <b>Directory buckets </b> - The HTTP Host header syntax is <code> <i>Bucket-name</i>.s3express-<i>zone-id</i>.<i>region-code</i>.amazonaws.com</code>.</p> </dd> </dl> <p>The following actions are related to <code>GetObjectAttributes</code>:</p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html\">GetObject</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html\">GetObjectAcl</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectLegalHold.html\">GetObjectLegalHold</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectLockConfiguration.html\">GetObjectLockConfiguration</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectRetention.html\">GetObjectRetention</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html\">GetObjectTagging</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html\">HeadObject</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html\">ListParts</a> </p> </li> </ul>"
+      "documentation":"<p>Retrieves all the metadata from an object without returning the object itself. This action is useful if you're interested only in an object's metadata. To use <code>GetObjectAttributes</code>, you must have READ access to the object.</p> <p> <code>GetObjectAttributes</code> combines the functionality of <code>GetObjectAcl</code>, <code>GetObjectLegalHold</code>, <code>GetObjectLockConfiguration</code>, <code>GetObjectRetention</code>, <code>GetObjectTagging</code>, <code>HeadObject</code>, and <code>ListParts</code>. All of the data returned with each of those individual calls can be returned with a single call to <code>GetObjectAttributes</code>.</p> <p>If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:</p> <ul> <li> <p> <code>x-amz-server-side-encryption-customer-algorithm</code> </p> </li> <li> <p> <code>x-amz-server-side-encryption-customer-key</code> </p> </li> <li> <p> <code>x-amz-server-side-encryption-customer-key-MD5</code> </p> </li> </ul> <p>For more information about SSE-C, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html\">Server-Side Encryption (Using Customer-Provided Encryption Keys)</a> in the <i>Amazon S3 User Guide</i>.</p> <note> <ul> <li> <p>Encryption request headers, such as <code>x-amz-server-side-encryption</code>, should not be sent for GET requests if your object uses server-side encryption with Amazon Web Services KMS keys stored in Amazon Web Services Key Management Service (SSE-KMS) or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). If your object does use these types of keys, you'll get an HTTP <code>400 Bad Request</code> error.</p> </li> <li> <p> The last modified property in this case is the creation date of the object.</p> </li> </ul> </note> <p>Consider the following when using request headers:</p> <ul> <li> <p> If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code> headers are present in the request as follows, then Amazon S3 returns the HTTP status code <code>200 OK</code> and the data requested:</p> <ul> <li> <p> <code>If-Match</code> condition evaluates to <code>true</code>.</p> </li> <li> <p> <code>If-Unmodified-Since</code> condition evaluates to <code>false</code>.</p> </li> </ul> </li> <li> <p>If both of the <code>If-None-Match</code> and <code>If-Modified-Since</code> headers are present in the request as follows, then Amazon S3 returns the HTTP status code <code>304 Not Modified</code>:</p> <ul> <li> <p> <code>If-None-Match</code> condition evaluates to <code>false</code>.</p> </li> <li> <p> <code>If-Modified-Since</code> condition evaluates to <code>true</code>.</p> </li> </ul> </li> </ul> <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p> <p> <b>Permissions</b> </p> <p>The permissions that you need to use this operation depend on whether the bucket is versioned. If the bucket is versioned, you need both the <code>s3:GetObjectVersion</code> and <code>s3:GetObjectVersionAttributes</code> permissions for this operation. If the bucket is not versioned, you need the <code>s3:GetObject</code> and <code>s3:GetObjectAttributes</code> permissions. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html\">Specifying Permissions in a Policy</a> in the <i>Amazon S3 User Guide</i>. If the object that you request does not exist, the error Amazon S3 returns depends on whether you also have the <code>s3:ListBucket</code> permission.</p> <ul> <li> <p>If you have the <code>s3:ListBucket</code> permission on the bucket, Amazon S3 returns an HTTP status code <code>404 Not Found</code> (\"no such key\") error.</p> </li> <li> <p>If you don't have the <code>s3:ListBucket</code> permission, Amazon S3 returns an HTTP status code <code>403 Forbidden</code> (\"access denied\") error.</p> </li> </ul> <p>The following actions are related to <code>GetObjectAttributes</code>:</p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html\">GetObject</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html\">GetObjectAcl</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectLegalHold.html\">GetObjectLegalHold</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectLockConfiguration.html\">GetObjectLockConfiguration</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectRetention.html\">GetObjectRetention</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html\">GetObjectTagging</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html\">HeadObject</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html\">ListParts</a> </p> </li> </ul>"
     },
     "GetObjectLegalHold":{
       "name":"GetObjectLegalHold",
@@ -1433,10 +1433,7 @@
       "input":{"shape":"UploadPartCopyRequest"},
       "output":{"shape":"UploadPartCopyOutput"},
       "documentationUrl":"http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPartCopy.html",
-      "documentation":"<p>Uploads a part by copying data from an existing object as data source. To specify the data source, you add the request header <code>x-amz-copy-source</code> in your request. To specify a byte range, you add the request header <code>x-amz-copy-source-range</code> in your request. </p> <p>For information about maximum and minimum part sizes and other multipart upload specifications, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html\">Multipart upload limits</a> in the <i>Amazon S3 User Guide</i>. </p> <note> <p>Instead of copying data from an existing object as part data, you might use the <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html\">UploadPart</a> action to upload new data as a part of an object in your request.</p> </note> <p>You must initiate a multipart upload before you can upload any part. In response to your initiate request, Amazon S3 returns the upload ID, a unique identifier that you must include in your upload part request.</p> <p>For conceptual information about multipart uploads, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html\">Uploading Objects Using Multipart Upload</a> in the <i>Amazon S3 User Guide</i>. For information about copying objects using a single atomic action vs. a multipart upload, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectOperations.html\">Operations on Objects</a> in the <i>Amazon S3 User Guide</i>.</p> <note> <p> <b>Directory buckets</b> - For directory buckets, you must make requests for this API operation to the Zonal endpoint. These endpoints support virtual-hosted-style requests in the format <code>https://<i>bucket-name</i>.s3express-<i>zone-id</i>.<i>region-code</i>.amazonaws.com/<i>key-name</i> </code>. Path-style requests are not supported. For more information about endpoints in Availability Zones, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html\">Regional and Zonal endpoints for directory buckets in Availability Zones</a> in the <i>Amazon S3 User Guide</i>. For more information about endpoints in Local Zones, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html\">Available Local Zone for directory buckets</a> in the <i>Amazon S3 User Guide</i>.</p> </note> <dl> <dt>Authentication and authorization</dt> <dd> <p>All <code>UploadPartCopy</code> requests must be authenticated and signed by using IAM credentials (access key ID and secret access key for the IAM identities). All headers with the <code>x-amz-</code> prefix, including <code>x-amz-copy-source</code>, must be signed. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html\">REST Authentication</a>.</p> <p> <b>Directory buckets</b> - You must use IAM credentials to authenticate and authorize your access to the <code>UploadPartCopy</code> API operation, instead of using the temporary security credentials through the <code>CreateSession</code> API operation.</p> <p>Amazon Web Services CLI or SDKs handles authentication and authorization on your behalf.</p> </dd> <dt>Permissions</dt> <dd> <p>You must have <code>READ</code> access to the source object and <code>WRITE</code> access to the destination bucket.</p> <ul> <li> <p> <b>General purpose bucket permissions</b> - You must have the permissions in a policy based on the bucket types of your source bucket and destination bucket in an <code>UploadPartCopy</code> operation.</p> <ul> <li> <p>If the source object is in a general purpose bucket, you must have the <b> <code>s3:GetObject</code> </b> permission to read the source object that is being copied. </p> </li> <li> <p>If the destination bucket is a general purpose bucket, you must have the <b> <code>s3:PutObject</code> </b> permission to write the object copy to the destination bucket. </p> </li> <li> <p>To perform a multipart upload with encryption using an Key Management Service key, the requester must have permission to the <code>kms:Decrypt</code> and <code>kms:GenerateDataKey</code> actions on the key. The requester must also have permissions for the <code>kms:GenerateDataKey</code> action for the <code>CreateMultipartUpload</code> API. Then, the requester needs permissions for the <code>kms:Decrypt</code> action on the <code>UploadPart</code> and <code>UploadPartCopy</code> APIs. These permissions are required because Amazon S3 must decrypt and read data from the encrypted file parts before it completes the multipart upload. For more information about KMS permissions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html\">Protecting data using server-side encryption with KMS</a> in the <i>Amazon S3 User Guide</i>. For information about the permissions required to use the multipart upload API, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html\">Multipart upload and permissions</a> and <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html#mpuAndPermissions\">Multipart upload API and permissions</a> in the <i>Amazon S3 User Guide</i>.</p> </li> </ul> </li> <li> <p> <b>Directory bucket permissions</b> - You must have permissions in a bucket policy or an IAM identity-based policy based on the source and destination bucket types in an <code>UploadPartCopy</code> operation.</p> <ul> <li> <p>If the source object that you want to copy is in a directory bucket, you must have the <b> <code>s3express:CreateSession</code> </b> permission in the <code>Action</code> element of a policy to read the object. By default, the session is in the <code>ReadWrite</code> mode. If you want to restrict the access, you can explicitly set the <code>s3express:SessionMode</code> condition key to <code>ReadOnly</code> on the copy source bucket.</p> </li> <li> <p>If the copy destination is a directory bucket, you must have the <b> <code>s3express:CreateSession</code> </b> permission in the <code>Action</code> element of a policy to write the object to the destination. The <code>s3express:SessionMode</code> condition key cannot be set to <code>ReadOnly</code> on the copy destination. </p> </li> </ul> <p>If the object is encrypted with SSE-KMS, you must also have the <code>kms:GenerateDataKey</code> and <code>kms:Decrypt</code> permissions in IAM identity-based policies and KMS key policies for the KMS key.</p> <p>For example policies, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-example-bucket-policies.html\">Example bucket policies for S3 Express One Zone</a> and <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-identity-policies.html\">Amazon Web Services Identity and Access Management (IAM) identity-based policies for S3 Express One Zone</a> in the <i>Amazon S3 User Guide</i>.</p> </li> </ul> </dd> <dt>Encryption</dt> <dd> <ul> <li> <p> <b>General purpose buckets </b> - For information about using server-side encryption with customer-provided encryption keys with the <code>UploadPartCopy</code> operation, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html\">CopyObject</a> and <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html\">UploadPart</a>. </p> </li> <li> <p> <b>Directory buckets </b> - For directory buckets, there are only two supported options for server-side encryption: server-side encryption with Amazon S3 managed keys (SSE-S3) (<code>AES256</code>) and server-side encryption with KMS keys (SSE-KMS) (<code>aws:kms</code>). For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html\">Protecting data with server-side encryption</a> in the <i>Amazon S3 User Guide</i>.</p> <note> <p>For directory buckets, when you perform a <code>CreateMultipartUpload</code> operation and an <code>UploadPartCopy</code> operation, the request headers you provide in the <code>CreateMultipartUpload</code> request must match the default encryption configuration of the destination bucket. </p> </note> <p>S3 Bucket Keys aren't supported, when you copy SSE-KMS encrypted objects from general purpose buckets to directory buckets, from directory buckets to general purpose buckets, or between directory buckets, through <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html\">UploadPartCopy</a>. In this case, Amazon S3 makes a call to KMS every time a copy request is made for a KMS-encrypted object.</p> </li> </ul> </dd> <dt>Special errors</dt> <dd> <ul> <li> <p>Error Code: <code>NoSuchUpload</code> </p> <ul> <li> <p>Description: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed.</p> </li> <li> <p>HTTP Status Code: 404 Not Found</p> </li> </ul> </li> <li> <p>Error Code: <code>InvalidRequest</code> </p> <ul> <li> <p>Description: The specified copy source is not supported as a byte-range copy source.</p> </li> <li> <p>HTTP Status Code: 400 Bad Request</p> </li> </ul> </li> </ul> </dd> <dt>HTTP Host header syntax</dt> <dd> <p> <b>Directory buckets </b> - The HTTP Host header syntax is <code> <i>Bucket-name</i>.s3express-<i>zone-id</i>.<i>region-code</i>.amazonaws.com</code>.</p> </dd> </dl> <p>The following operations are related to <code>UploadPartCopy</code>:</p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html\">CreateMultipartUpload</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html\">UploadPart</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html\">CompleteMultipartUpload</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html\">AbortMultipartUpload</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html\">ListParts</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html\">ListMultipartUploads</a> </p> </li> </ul>",
-      "staticContextParams":{
-        "DisableS3ExpressSessionAuth":{"value":true}
-      }
+      "documentation":"<p>Uploads a part by copying data from an existing object as data source. You specify the data source by adding the request header <code>x-amz-copy-source</code> in your request and a byte range by adding the request header <code>x-amz-copy-source-range</code> in your request. </p> <p>For information about maximum and minimum part sizes and other multipart upload specifications, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html\">Multipart upload limits</a> in the <i>Amazon S3 User Guide</i>. </p> <note> <p>Instead of using an existing object as part data, you might use the <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html\">UploadPart</a> action and provide data in your request.</p> </note> <p>You must initiate a multipart upload before you can upload any part. In response to your initiate request. Amazon S3 returns a unique identifier, the upload ID, that you must include in your upload part request.</p> <p>For more information about using the <code>UploadPartCopy</code> operation, see the following:</p> <ul> <li> <p>For conceptual information about multipart uploads, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html\">Uploading Objects Using Multipart Upload</a> in the <i>Amazon S3 User Guide</i>.</p> </li> <li> <p>For information about permissions required to use the multipart upload API, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html\">Multipart Upload and Permissions</a> in the <i>Amazon S3 User Guide</i>.</p> </li> <li> <p>For information about copying objects using a single atomic action vs. a multipart upload, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectOperations.html\">Operations on Objects</a> in the <i>Amazon S3 User Guide</i>.</p> </li> <li> <p>For information about using server-side encryption with customer-provided encryption keys with the <code>UploadPartCopy</code> operation, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html\">CopyObject</a> and <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html\">UploadPart</a>.</p> </li> </ul> <p>Note the following additional considerations about the request headers <code>x-amz-copy-source-if-match</code>, <code>x-amz-copy-source-if-none-match</code>, <code>x-amz-copy-source-if-unmodified-since</code>, and <code>x-amz-copy-source-if-modified-since</code>:</p> <p> </p> <ul> <li> <p> <b>Consideration 1</b> - If both of the <code>x-amz-copy-source-if-match</code> and <code>x-amz-copy-source-if-unmodified-since</code> headers are present in the request as follows:</p> <p> <code>x-amz-copy-source-if-match</code> condition evaluates to <code>true</code>, and;</p> <p> <code>x-amz-copy-source-if-unmodified-since</code> condition evaluates to <code>false</code>;</p> <p>Amazon S3 returns <code>200 OK</code> and copies the data. </p> </li> <li> <p> <b>Consideration 2</b> - If both of the <code>x-amz-copy-source-if-none-match</code> and <code>x-amz-copy-source-if-modified-since</code> headers are present in the request as follows:</p> <p> <code>x-amz-copy-source-if-none-match</code> condition evaluates to <code>false</code>, and;</p> <p> <code>x-amz-copy-source-if-modified-since</code> condition evaluates to <code>true</code>;</p> <p>Amazon S3 returns <code>412 Precondition Failed</code> response code. </p> </li> </ul> <p> <b>Versioning</b> </p> <p>If your bucket has versioning enabled, you could have multiple versions of the same object. By default, <code>x-amz-copy-source</code> identifies the current version of the object to copy. If the current version is a delete marker and you don't specify a versionId in the <code>x-amz-copy-source</code>, Amazon S3 returns a 404 error, because the object does not exist. If you specify versionId in the <code>x-amz-copy-source</code> and the versionId is a delete marker, Amazon S3 returns an HTTP 400 error, because you are not allowed to specify a delete marker as a version for the <code>x-amz-copy-source</code>. </p> <p>You can optionally specify a specific version of the source object to copy by adding the <code>versionId</code> subresource as shown in the following example:</p> <p> <code>x-amz-copy-source: /bucket/object?versionId=version id</code> </p> <p class=\"title\"> <b>Special Errors</b> </p> <ul> <li> <ul> <li> <p> <i>Code: NoSuchUpload</i> </p> </li> <li> <p> <i>Cause: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed.</i> </p> </li> <li> <p> <i>HTTP Status Code: 404 Not Found</i> </p> </li> </ul> </li> <li> <ul> <li> <p> <i>Code: InvalidRequest</i> </p> </li> <li> <p> <i>Cause: The specified copy source is not supported as a byte-range copy source.</i> </p> </li> <li> <p> <i>HTTP Status Code: 400 Bad Request</i> </p> </li> </ul> </li> </ul> <p class=\"title\"> <b>Related Resources</b> </p> <ul> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html\">CreateMultipartUpload</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html\">UploadPart</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html\">CompleteMultipartUpload</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html\">AbortMultipartUpload</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html\">ListParts</a> </p> </li> <li> <p> <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html\">ListMultipartUploads</a> </p> </li> </ul>"
     },
     "WriteGetObjectResponse":{
       "name":"WriteGetObjectResponse",
@@ -1445,15 +1442,14 @@
         "requestUri":"/WriteGetObjectResponse"
       },
       "input":{"shape":"WriteGetObjectResponseRequest"},
-      "documentation":"<note> <p>This operation is not supported for directory buckets.</p> </note> <p>Passes transformed objects to a <code>GetObject</code> operation when using Object Lambda access points. For information about Object Lambda access points, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html\">Transforming objects with Object Lambda access points</a> in the <i>Amazon S3 User Guide</i>.</p> <p>This operation supports metadata that can be returned by <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html\">GetObject</a>, in addition to <code>RequestRoute</code>, <code>RequestToken</code>, <code>StatusCode</code>, <code>ErrorCode</code>, and <code>ErrorMessage</code>. The <code>GetObject</code> response metadata is supported so that the <code>WriteGetObjectResponse</code> caller, typically an Lambda function, can provide the same metadata when it internally invokes <code>GetObject</code>. When <code>WriteGetObjectResponse</code> is called by a customer-owned Lambda function, the metadata returned to the end user <code>GetObject</code> call might differ from what Amazon S3 would normally return.</p> <p>You can include any number of metadata headers. When including a metadata header, it should be prefaced with <code>x-amz-meta</code>. For example, <code>x-amz-meta-my-custom-header: MyCustomValue</code>. The primary use case for this is to forward <code>GetObject</code> metadata.</p> <p>Amazon Web Services provides some prebuilt Lambda functions that you can use with S3 Object Lambda to detect and redact personally identifiable information (PII) and decompress S3 objects. These Lambda functions are available in the Amazon Web Services Serverless Application Repository, and can be selected through the Amazon Web Services Management Console when you create your Object Lambda access point.</p> <p>Example 1: PII Access Control - This Lambda function uses Amazon Comprehend, a natural language processing (NLP) service using machine learning to find insights and relationships in text. It automatically detects personally identifiable information (PII) such as names, addresses, dates, credit card numbers, and social security numbers from documents in your Amazon S3 bucket. </p> <p>Example 2: PII Redaction - This Lambda function uses Amazon Comprehend, a natural language processing (NLP) service using machine learning to find insights and relationships in text. It automatically redacts personally identifiable information (PII) such as names, addresses, dates, credit card numbers, and social security numbers from documents in your Amazon S3 bucket. </p> <p>Example 3: Decompression - The Lambda function S3ObjectLambdaDecompression, is equipped to decompress objects stored in S3 in one of six compressed file formats including bzip2, gzip, snappy, zlib, zstandard and ZIP. </p> <p>For information on how to view and use these functions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-examples.html\">Using Amazon Web Services built Lambda functions</a> in the <i>Amazon S3 User Guide</i>.</p>",
+      "documentation":"<p>Passes transformed objects to a <code>GetObject</code> operation when using Object Lambda access points. For information about Object Lambda access points, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html\">Transforming objects with Object Lambda access points</a> in the <i>Amazon S3 User Guide</i>.</p> <p>This operation supports metadata that can be returned by <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html\">GetObject</a>, in addition to <code>RequestRoute</code>, <code>RequestToken</code>, <code>StatusCode</code>, <code>ErrorCode</code>, and <code>ErrorMessage</code>. The <code>GetObject</code> response metadata is supported so that the <code>WriteGetObjectResponse</code> caller, typically an Lambda function, can provide the same metadata when it internally invokes <code>GetObject</code>. When <code>WriteGetObjectResponse</code> is called by a customer-owned Lambda function, the metadata returned to the end user <code>GetObject</code> call might differ from what Amazon S3 would normally return.</p> <p>You can include any number of metadata headers. When including a metadata header, it should be prefaced with <code>x-amz-meta</code>. For example, <code>x-amz-meta-my-custom-header: MyCustomValue</code>. The primary use case for this is to forward <code>GetObject</code> metadata.</p> <p>Amazon Web Services provides some prebuilt Lambda functions that you can use with S3 Object Lambda to detect and redact personally identifiable information (PII) and decompress S3 objects. These Lambda functions are available in the Amazon Web Services Serverless Application Repository, and can be selected through the Amazon Web Services Management Console when you create your Object Lambda access point.</p> <p>Example 1: PII Access Control - This Lambda function uses Amazon Comprehend, a natural language processing (NLP) service using machine learning to find insights and relationships in text. It automatically detects personally identifiable information (PII) such as names, addresses, dates, credit card numbers, and social security numbers from documents in your Amazon S3 bucket. </p> <p>Example 2: PII Redaction - This Lambda function uses Amazon Comprehend, a natural language processing (NLP) service using machine learning to find insights and relationships in text. It automatically redacts personally identifiable information (PII) such as names, addresses, dates, credit card numbers, and social security numbers from documents in your Amazon S3 bucket. </p> <p>Example 3: Decompression - The Lambda function S3ObjectLambdaDecompression, is equipped to decompress objects stored in S3 in one of six compressed file formats including bzip2, gzip, snappy, zlib, zstandard and ZIP. </p> <p>For information on how to view and use these functions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-examples.html\">Using Amazon Web Services built Lambda functions</a> in the <i>Amazon S3 User Guide</i>.</p>",
       "authtype":"v4-unsigned-body",
       "endpoint":{
         "hostPrefix":"{RequestRoute}."
       },
       "staticContextParams":{
         "UseObjectLambdaEndpoint":{"value":true}
-      },
-      "unsignedPayload":true
+      }
     }
   },
   "shapes":{
@@ -1562,11 +1558,6 @@
         }
       },
       "documentation":"<p>A container for information about access control for replicas.</p>"
-    },
-    "AccessKeyIdValue":{"type":"string"},
-    "AccessPointAlias":{
-      "type":"boolean",
-      "box":true
     },
     "AccessPointArn":{"type":"string"},
     "AccountId":{"type":"string"},
@@ -4066,20 +4057,6 @@
       "documentation":"<p>Container for all error elements.</p>"
     },
     "ErrorCode":{"type":"string"},
-    "ErrorDetails":{
-      "type":"structure",
-      "members":{
-        "ErrorCode":{
-          "shape":"ErrorCode",
-          "documentation":"<p> If the <code>CreateBucketMetadataTableConfiguration</code> request succeeds, but S3 Metadata was unable to create the table, this structure contains the error code. The possible error codes and error messages are as follows: </p> <ul> <li> <p> <code>AccessDeniedCreatingResources</code> - You don't have sufficient permissions to create the required resources. Make sure that you have <code>s3tables:CreateNamespace</code>, <code>s3tables:CreateTable</code>, <code>s3tables:GetTable</code> and <code>s3tables:PutTablePolicy</code> permissions, and then try again. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration. </p> </li> <li> <p> <code>AccessDeniedWritingToTable</code> - Unable to write to the metadata table because of missing resource permissions. To fix the resource policy, Amazon S3 needs to create a new metadata table. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> <li> <p> <code>DestinationTableNotFound</code> - The destination table doesn't exist. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> <li> <p> <code>ServerInternalError</code> - An internal error has occurred. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> <li> <p> <code>TableAlreadyExists</code> - The table that you specified already exists in the table bucket's namespace. Specify a different table name. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> <li> <p> <code>TableBucketNotFound</code> - The table bucket that you specified doesn't exist in this Amazon Web Services Region and account. Create or choose a different table bucket. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> </ul>"
-        },
-        "ErrorMessage":{
-          "shape":"ErrorMessage",
-          "documentation":"<p> If the <code>CreateBucketMetadataTableConfiguration</code> request succeeds, but S3 Metadata was unable to create the table, this structure contains the error message. The possible error codes and error messages are as follows: </p> <ul> <li> <p> <code>AccessDeniedCreatingResources</code> - You don't have sufficient permissions to create the required resources. Make sure that you have <code>s3tables:CreateNamespace</code>, <code>s3tables:CreateTable</code>, <code>s3tables:GetTable</code> and <code>s3tables:PutTablePolicy</code> permissions, and then try again. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration. </p> </li> <li> <p> <code>AccessDeniedWritingToTable</code> - Unable to write to the metadata table because of missing resource permissions. To fix the resource policy, Amazon S3 needs to create a new metadata table. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> <li> <p> <code>DestinationTableNotFound</code> - The destination table doesn't exist. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> <li> <p> <code>ServerInternalError</code> - An internal error has occurred. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> <li> <p> <code>TableAlreadyExists</code> - The table that you specified already exists in the table bucket's namespace. Specify a different table name. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> <li> <p> <code>TableBucketNotFound</code> - The table bucket that you specified doesn't exist in this Amazon Web Services Region and account. Create or choose a different table bucket. To create a new metadata table, you must delete the metadata configuration for this bucket, and then create a new metadata configuration.</p> </li> </ul>"
-        }
-      },
-      "documentation":"<p> If the <code>CreateBucketMetadataTableConfiguration</code> request succeeds, but S3 Metadata was unable to create the table, this structure contains the error code and error message. </p>"
-    },
     "ErrorDocument":{
       "type":"structure",
       "required":["Key"],
@@ -5129,13 +5106,163 @@
         },
         "ExpectedBucketOwner":{
           "shape":"AccountId",
-          "documentation":"<p>The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of the bucket, the request fails with the HTTP status code <code>403 Forbidden</code> (access denied).</p>",
+          "documentation":"<p>The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code <code>403 Forbidden</code> (access denied).</p>",
+          "location":"header",
+          "locationName":"x-amz-expected-bucket-owner"
+        }
+      }
+    },
+    "GetObjectAttributesOutput":{
+      "type":"structure",
+      "members":{
+        "DeleteMarker":{
+          "shape":"DeleteMarker",
+          "documentation":"<p>Specifies whether the object retrieved was (<code>true</code>) or was not (<code>false</code>) a delete marker. If <code>false</code>, this response header does not appear in the response.</p>",
+          "location":"header",
+          "locationName":"x-amz-delete-marker"
+        },
+        "LastModified":{
+          "shape":"LastModified",
+          "documentation":"<p>The creation date of the object.</p>",
+          "location":"header",
+          "locationName":"Last-Modified"
+        },
+        "VersionId":{
+          "shape":"ObjectVersionId",
+          "documentation":"<p>The version ID of the object.</p>",
+          "location":"header",
+          "locationName":"x-amz-version-id"
+        },
+        "RequestCharged":{
+          "shape":"RequestCharged",
+          "location":"header",
+          "locationName":"x-amz-request-charged"
+        },
+        "ETag":{
+          "shape":"ETag",
+          "documentation":"<p>An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.</p>"
+        },
+        "Checksum":{
+          "shape":"Checksum",
+          "documentation":"<p>The checksum or digest of the object.</p>"
+        },
+        "ObjectParts":{
+          "shape":"GetObjectAttributesParts",
+          "documentation":"<p>A collection of parts associated with a multipart upload.</p>"
+        },
+        "StorageClass":{
+          "shape":"StorageClass",
+          "documentation":"<p>Provides the storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html\">Storage Classes</a>.</p>"
+        },
+        "ObjectSize":{
+          "shape":"ObjectSize",
+          "documentation":"<p>The size of the object in bytes.</p>"
+        }
+      }
+    },
+    "GetObjectAttributesParts":{
+      "type":"structure",
+      "members":{
+        "TotalPartsCount":{
+          "shape":"PartsCount",
+          "documentation":"<p>The total number of parts.</p>",
+          "locationName":"PartsCount"
+        },
+        "PartNumberMarker":{
+          "shape":"PartNumberMarker",
+          "documentation":"<p>The marker for the current part.</p>"
+        },
+        "NextPartNumberMarker":{
+          "shape":"NextPartNumberMarker",
+          "documentation":"<p>When a list is truncated, this element specifies the last part in the list, as well as the value to use for the <code>PartNumberMarker</code> request parameter in a subsequent request.</p>"
+        },
+        "MaxParts":{
+          "shape":"MaxParts",
+          "documentation":"<p>The maximum number of parts allowed in the response.</p>"
+        },
+        "IsTruncated":{
+          "shape":"IsTruncated",
+          "documentation":"<p>Indicates whether the returned list of parts is truncated. A value of <code>true</code> indicates that the list was truncated. A list can be truncated if the number of parts exceeds the limit returned in the <code>MaxParts</code> element.</p>"
+        },
+        "Parts":{
+          "shape":"PartsList",
+          "documentation":"<p>A container for elements related to a particular part. A response can contain zero or more <code>Parts</code> elements.</p>",
+          "locationName":"Part"
+        }
+      },
+      "documentation":"<p>A collection of parts associated with a multipart upload.</p>"
+    },
+    "GetObjectAttributesRequest":{
+      "type":"structure",
+      "required":[
+        "Bucket",
+        "Key",
+        "ObjectAttributes"
+      ],
+      "members":{
+        "Bucket":{
+          "shape":"BucketName",
+          "documentation":"<p>The name of the bucket that contains the object.</p> <p>When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html\">Using access points</a> in the <i>Amazon S3 User Guide</i>.</p> <p>When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html\">Using Amazon S3 on Outposts</a> in the <i>Amazon S3 User Guide</i>.</p>",
+          "contextParam":{"name":"Bucket"},
+          "location":"uri",
+          "locationName":"Bucket"
+        },
+        "Key":{
+          "shape":"ObjectKey",
+          "documentation":"<p>The object key.</p>",
+          "location":"uri",
+          "locationName":"Key"
+        },
+        "VersionId":{
+          "shape":"ObjectVersionId",
+          "documentation":"<p>The version ID used to reference a specific version of the object.</p>",
+          "location":"querystring",
+          "locationName":"versionId"
+        },
+        "MaxParts":{
+          "shape":"MaxParts",
+          "documentation":"<p>Sets the maximum number of parts to return.</p>",
+          "location":"header",
+          "locationName":"x-amz-max-parts"
+        },
+        "PartNumberMarker":{
+          "shape":"PartNumberMarker",
+          "documentation":"<p>Specifies the part after which listing should begin. Only parts with higher part numbers will be listed.</p>",
+          "location":"header",
+          "locationName":"x-amz-part-number-marker"
+        },
+        "SSECustomerAlgorithm":{
+          "shape":"SSECustomerAlgorithm",
+          "documentation":"<p>Specifies the algorithm to use when encrypting the object (for example, AES256).</p>",
+          "location":"header",
+          "locationName":"x-amz-server-side-encryption-customer-algorithm"
+        },
+        "SSECustomerKey":{
+          "shape":"SSECustomerKey",
+          "documentation":"<p>Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use with the algorithm specified in the <code>x-amz-server-side-encryption-customer-algorithm</code> header.</p>",
+          "location":"header",
+          "locationName":"x-amz-server-side-encryption-customer-key"
+        },
+        "SSECustomerKeyMD5":{
+          "shape":"SSECustomerKeyMD5",
+          "documentation":"<p>Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.</p>",
+          "location":"header",
+          "locationName":"x-amz-server-side-encryption-customer-key-MD5"
+        },
+        "RequestPayer":{
+          "shape":"RequestPayer",
+          "location":"header",
+          "locationName":"x-amz-request-payer"
+        },
+        "ExpectedBucketOwner":{
+          "shape":"AccountId",
+          "documentation":"<p>The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code <code>403 Forbidden</code> (access denied).</p>",
           "location":"header",
           "locationName":"x-amz-expected-bucket-owner"
         },
         "ObjectAttributes":{
           "shape":"ObjectAttributesList",
-          "documentation":"<p>Specifies the fields at the root level that you want returned in the response. Fields that you do not specify are not returned.</p>",
+          "documentation":"<p>An XML header that specifies the fields at the root level that you want returned in the response. Fields that you do not specify are not returned.</p>",
           "location":"header",
           "locationName":"x-amz-object-attributes"
         }
@@ -5592,6 +5719,7 @@
       "type":"integer",
       "box":true
     },
+    "GetObjectResponseStatusCode":{"type":"integer"},
     "GetObjectRetentionOutput":{
       "type":"structure",
       "members":{
@@ -6547,10 +6675,7 @@
         "ObjectLockMode",
         "ObjectLockLegalHoldStatus",
         "IntelligentTieringAccessTier",
-        "BucketKeyStatus",
-        "ChecksumAlgorithm",
-        "ObjectAccessControlList",
-        "ObjectOwner"
+        "BucketKeyStatus"
       ]
     },
     "InventoryOptionalFields":{
@@ -6734,7 +6859,7 @@
         },
         "Filter":{
           "shape":"LifecycleRuleFilter",
-          "documentation":"<p>The <code>Filter</code> is used to identify objects that a Lifecycle Rule applies to. A <code>Filter</code> must have exactly one of <code>Prefix</code>, <code>Tag</code>, or <code>And</code> specified. <code>Filter</code> is required if the <code>LifecycleRule</code> does not contain a <code>Prefix</code> element.</p> <note> <p> <code>Tag</code> filters are not supported for directory buckets.</p> </note>"
+          "documentation":"<p>The <code>Filter</code> is used to identify objects that a Lifecycle Rule applies to. A <code>Filter</code> must have exactly one of <code>Prefix</code>, <code>Tag</code>, or <code>And</code> specified. <code>Filter</code> is required if the <code>LifecycleRule</code> does not contain a <code>Prefix</code> element.</p>"
         },
         "Status":{
           "shape":"ExpirationStatus",
@@ -6789,6 +6914,14 @@
         "Tag":{
           "shape":"Tag",
           "documentation":"<p>This tag must exist in the object's tag set in order for the rule to apply.</p> <note> <p>This parameter applies to general purpose buckets only. It is not supported for directory bucket lifecycle configurations.</p> </note>"
+        },
+        "ObjectSizeGreaterThan":{
+          "shape":"ObjectSizeGreaterThanBytes",
+          "documentation":"<p>Minimum object size to which the rule applies.</p>"
+        },
+        "ObjectSizeLessThan":{
+          "shape":"ObjectSizeLessThanBytes",
+          "documentation":"<p>Maximum object size to which the rule applies.</p>"
         },
         "ObjectSizeGreaterThan":{
           "shape":"ObjectSizeGreaterThanBytes",
@@ -8039,7 +8172,7 @@
         },
         "NewerNoncurrentVersions":{
           "shape":"VersionCount",
-          "documentation":"<p>Specifies how many noncurrent versions Amazon S3 will retain in the same storage class before transitioning objects. You can specify up to 100 noncurrent versions to retain. Amazon S3 will transition any additional noncurrent versions beyond the specified number to retain. For more information about noncurrent versions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html\">Lifecycle configuration elements</a> in the <i>Amazon S3 User Guide</i>.</p>"
+          "documentation":"<p>Specifies how many noncurrent versions Amazon S3 will retain. If there are this many more recent noncurrent versions, Amazon S3 will take the associated action. For more information about noncurrent versions, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html\">Lifecycle configuration elements</a> in the <i>Amazon S3 User Guide</i>.</p>"
         }
       },
       "documentation":"<p>Container for the transition rule that describes when noncurrent objects transition to the <code>STANDARD_IA</code>, <code>ONEZONE_IA</code>, <code>INTELLIGENT_TIERING</code>, <code>GLACIER_IR</code>, <code>GLACIER</code>, or <code>DEEP_ARCHIVE</code> storage class. If your bucket is versioning-enabled (or versioning is suspended), you can set this action to request that Amazon S3 transition noncurrent object versions to the <code>STANDARD_IA</code>, <code>ONEZONE_IA</code>, <code>INTELLIGENT_TIERING</code>, <code>GLACIER_IR</code>, <code>GLACIER</code>, or <code>DEEP_ARCHIVE</code> storage class at a specific period in the object's lifetime.</p>"
@@ -8367,6 +8500,39 @@
       "type":"long",
       "box":true
     },
+    "ObjectPart":{
+      "type":"structure",
+      "members":{
+        "PartNumber":{
+          "shape":"PartNumber",
+          "documentation":"<p>The part number identifying the part. This value is a positive integer between 1 and 10,000.</p>"
+        },
+        "Size":{
+          "shape":"Size",
+          "documentation":"<p>The size of the uploaded part in bytes.</p>"
+        },
+        "ChecksumCRC32":{
+          "shape":"ChecksumCRC32",
+          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This header specifies the base64-encoded, 32-bit CRC32 checksum of the object. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"
+        },
+        "ChecksumCRC32C":{
+          "shape":"ChecksumCRC32C",
+          "documentation":"<p>The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums\"> Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"
+        },
+        "ChecksumSHA1":{
+          "shape":"ChecksumSHA1",
+          "documentation":"<p>The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums\"> Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"
+        },
+        "ChecksumSHA256":{
+          "shape":"ChecksumSHA256",
+          "documentation":"<p>The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums\"> Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"
+        }
+      },
+      "documentation":"<p>A container for elements related to an individual part.</p>"
+    },
+    "ObjectSize":{"type":"long"},
+    "ObjectSizeGreaterThanBytes":{"type":"long"},
+    "ObjectSizeLessThanBytes":{"type":"long"},
     "ObjectStorageClass":{
       "type":"string",
       "enum":[
@@ -8378,9 +8544,7 @@
         "INTELLIGENT_TIERING",
         "DEEP_ARCHIVE",
         "OUTPOSTS",
-        "GLACIER_IR",
-        "SNOW",
-        "EXPRESS_ONEZONE"
+        "GLACIER_IR"
       ]
     },
     "ObjectVersion":{
@@ -8591,10 +8755,7 @@
       "member":{"shape":"Part"},
       "flattened":true
     },
-    "PartsCount":{
-      "type":"integer",
-      "box":true
-    },
+    "PartsCount":{"type":"integer"},
     "PartsList":{
       "type":"list",
       "member":{"shape":"ObjectPart"},
@@ -11161,69 +11322,9 @@
       "member":{"shape":"ServerSideEncryptionRule"},
       "flattened":true
     },
-    "SessionCredentialValue":{
-      "type":"string",
-      "sensitive":true
-    },
-    "SessionCredentials":{
-      "type":"structure",
-      "required":[
-        "AccessKeyId",
-        "SecretAccessKey",
-        "SessionToken",
-        "Expiration"
-      ],
-      "members":{
-        "AccessKeyId":{
-          "shape":"AccessKeyIdValue",
-          "documentation":"<p>A unique identifier that's associated with a secret access key. The access key ID and the secret access key are used together to sign programmatic Amazon Web Services requests cryptographically. </p>",
-          "locationName":"AccessKeyId"
-        },
-        "SecretAccessKey":{
-          "shape":"SessionCredentialValue",
-          "documentation":"<p>A key that's used with the access key ID to cryptographically sign programmatic Amazon Web Services requests. Signing a request identifies the sender and prevents the request from being altered. </p>",
-          "locationName":"SecretAccessKey"
-        },
-        "SessionToken":{
-          "shape":"SessionCredentialValue",
-          "documentation":"<p>A part of the temporary security credentials. The session token is used to validate the temporary security credentials. </p>",
-          "locationName":"SessionToken"
-        },
-        "Expiration":{
-          "shape":"SessionExpiration",
-          "documentation":"<p>Temporary security credentials expire after a specified interval. After temporary credentials expire, any calls that you make with those credentials will fail. So you must generate a new set of temporary credentials. Temporary credentials cannot be extended or refreshed beyond the original specified interval.</p>",
-          "locationName":"Expiration"
-        }
-      },
-      "documentation":"<p>The established temporary security credentials of the session.</p> <note> <p> <b>Directory buckets</b> - These session credentials are only supported for the authentication and authorization of Zonal endpoint API operations on directory buckets.</p> </note>"
-    },
-    "SessionExpiration":{"type":"timestamp"},
-    "SessionMode":{
-      "type":"string",
-      "enum":[
-        "ReadOnly",
-        "ReadWrite"
-      ]
-    },
-    "Setting":{
-      "type":"boolean",
-      "box":true
-    },
-    "SimplePrefix":{
-      "type":"structure",
-      "members":{
-      },
-      "documentation":"<p>To use simple format for S3 keys for log objects, set SimplePrefix to an empty object.</p> <p> <code>[DestinationPrefix][YYYY]-[MM]-[DD]-[hh]-[mm]-[ss]-[UniqueString]</code> </p>",
-      "locationName":"SimplePrefix"
-    },
-    "Size":{
-      "type":"long",
-      "box":true
-    },
-    "SkipValidation":{
-      "type":"boolean",
-      "box":true
-    },
+    "Setting":{"type":"boolean"},
+    "Size":{"type":"integer"},
+    "SkipValidation":{"type":"boolean"},
     "SourceSelectionCriteria":{
       "type":"structure",
       "members":{
@@ -11302,9 +11403,7 @@
         "GLACIER",
         "DEEP_ARCHIVE",
         "OUTPOSTS",
-        "GLACIER_IR",
-        "SNOW",
-        "EXPRESS_ONEZONE"
+        "GLACIER_IR"
       ]
     },
     "StorageClassAnalysis":{
@@ -12018,7 +12117,7 @@
         },
         "StatusCode":{
           "shape":"GetObjectResponseStatusCode",
-          "documentation":"<p>The integer status code for an HTTP response of a corresponding <code>GetObject</code> request. The following is a list of status codes.</p> <ul> <li> <p> <code>200 - OK</code> </p> </li> <li> <p> <code>206 - Partial Content</code> </p> </li> <li> <p> <code>304 - Not Modified</code> </p> </li> <li> <p> <code>400 - Bad Request</code> </p> </li> <li> <p> <code>401 - Unauthorized</code> </p> </li> <li> <p> <code>403 - Forbidden</code> </p> </li> <li> <p> <code>404 - Not Found</code> </p> </li> <li> <p> <code>405 - Method Not Allowed</code> </p> </li> <li> <p> <code>409 - Conflict</code> </p> </li> <li> <p> <code>411 - Length Required</code> </p> </li> <li> <p> <code>412 - Precondition Failed</code> </p> </li> <li> <p> <code>416 - Range Not Satisfiable</code> </p> </li> <li> <p> <code>500 - Internal Server Error</code> </p> </li> <li> <p> <code>503 - Service Unavailable</code> </p> </li> </ul>",
+          "documentation":"<p>The integer status code for an HTTP response of a corresponding <code>GetObject</code> request.</p> <p class=\"title\"> <b>Status Codes</b> </p> <ul> <li> <p> <code>200 - OK</code> </p> </li> <li> <p> <code>206 - Partial Content</code> </p> </li> <li> <p> <code>304 - Not Modified</code> </p> </li> <li> <p> <code>400 - Bad Request</code> </p> </li> <li> <p> <code>401 - Unauthorized</code> </p> </li> <li> <p> <code>403 - Forbidden</code> </p> </li> <li> <p> <code>404 - Not Found</code> </p> </li> <li> <p> <code>405 - Method Not Allowed</code> </p> </li> <li> <p> <code>409 - Conflict</code> </p> </li> <li> <p> <code>411 - Length Required</code> </p> </li> <li> <p> <code>412 - Precondition Failed</code> </p> </li> <li> <p> <code>416 - Range Not Satisfiable</code> </p> </li> <li> <p> <code>500 - Internal Server Error</code> </p> </li> <li> <p> <code>503 - Service Unavailable</code> </p> </li> </ul>",
           "location":"header",
           "locationName":"x-amz-fwd-status"
         },
@@ -12084,31 +12183,25 @@
         },
         "ChecksumCRC32":{
           "shape":"ChecksumCRC32",
-          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This specifies the Base64 encoded, 32-bit <code>CRC-32</code> checksum of the object returned by the Object Lambda function. This may not match the checksum for the object stored in Amazon S3. Amazon S3 will perform validation of the checksum values only when the original <code>GetObject</code> request required checksum validation. For more information about checksums, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p> <p>Only one checksum header can be specified at a time. If you supply multiple checksum headers, this request will fail.</p> <p/>",
+          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This specifies the base64-encoded, 32-bit CRC32 checksum of the object returned by the Object Lambda function. This may not match the checksum for the object stored in Amazon S3. Amazon S3 will perform validation of the checksum values only when the original <code>GetObject</code> request required checksum validation. For more information about checksums, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p> <p>Only one checksum header can be specified at a time. If you supply multiple checksum headers, this request will fail.</p> <p/>",
           "location":"header",
           "locationName":"x-amz-fwd-header-x-amz-checksum-crc32"
         },
         "ChecksumCRC32C":{
           "shape":"ChecksumCRC32C",
-          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This specifies the Base64 encoded, 32-bit <code>CRC-32C</code> checksum of the object returned by the Object Lambda function. This may not match the checksum for the object stored in Amazon S3. Amazon S3 will perform validation of the checksum values only when the original <code>GetObject</code> request required checksum validation. For more information about checksums, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p> <p>Only one checksum header can be specified at a time. If you supply multiple checksum headers, this request will fail.</p>",
+          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This specifies the base64-encoded, 32-bit CRC32C checksum of the object returned by the Object Lambda function. This may not match the checksum for the object stored in Amazon S3. Amazon S3 will perform validation of the checksum values only when the original <code>GetObject</code> request required checksum validation. For more information about checksums, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p> <p>Only one checksum header can be specified at a time. If you supply multiple checksum headers, this request will fail.</p>",
           "location":"header",
           "locationName":"x-amz-fwd-header-x-amz-checksum-crc32c"
         },
-        "ChecksumCRC64NVME":{
-          "shape":"ChecksumCRC64NVME",
-          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This header specifies the Base64 encoded, 64-bit <code>CRC-64NVME</code> checksum of the part. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>",
-          "location":"header",
-          "locationName":"x-amz-fwd-header-x-amz-checksum-crc64nvme"
-        },
         "ChecksumSHA1":{
           "shape":"ChecksumSHA1",
-          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This specifies the Base64 encoded, 160-bit <code>SHA-1</code> digest of the object returned by the Object Lambda function. This may not match the checksum for the object stored in Amazon S3. Amazon S3 will perform validation of the checksum values only when the original <code>GetObject</code> request required checksum validation. For more information about checksums, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p> <p>Only one checksum header can be specified at a time. If you supply multiple checksum headers, this request will fail.</p>",
+          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This specifies the base64-encoded, 160-bit SHA-1 digest of the object returned by the Object Lambda function. This may not match the checksum for the object stored in Amazon S3. Amazon S3 will perform validation of the checksum values only when the original <code>GetObject</code> request required checksum validation. For more information about checksums, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p> <p>Only one checksum header can be specified at a time. If you supply multiple checksum headers, this request will fail.</p>",
           "location":"header",
           "locationName":"x-amz-fwd-header-x-amz-checksum-sha1"
         },
         "ChecksumSHA256":{
           "shape":"ChecksumSHA256",
-          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This specifies the Base64 encoded, 256-bit <code>SHA-256</code> digest of the object returned by the Object Lambda function. This may not match the checksum for the object stored in Amazon S3. Amazon S3 will perform validation of the checksum values only when the original <code>GetObject</code> request required checksum validation. For more information about checksums, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p> <p>Only one checksum header can be specified at a time. If you supply multiple checksum headers, this request will fail.</p>",
+          "documentation":"<p>This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This specifies the base64-encoded, 256-bit SHA-256 digest of the object returned by the Object Lambda function. This may not match the checksum for the object stored in Amazon S3. Amazon S3 will perform validation of the checksum values only when the original <code>GetObject</code> request required checksum validation. For more information about checksums, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html\">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p> <p>Only one checksum header can be specified at a time. If you supply multiple checksum headers, this request will fail.</p>",
           "location":"header",
           "locationName":"x-amz-fwd-header-x-amz-checksum-sha256"
         },
@@ -12197,7 +12290,7 @@
         },
         "ServerSideEncryption":{
           "shape":"ServerSideEncryption",
-          "documentation":"<p> The server-side encryption algorithm used when storing requested object in Amazon S3 (for example, AES256, <code>aws:kms</code>).</p>",
+          "documentation":"<p> The server-side encryption algorithm used when storing requested object in Amazon S3 (for example, AES256, aws:kms).</p>",
           "location":"header",
           "locationName":"x-amz-fwd-header-x-amz-server-side-encryption"
         },
@@ -12209,7 +12302,7 @@
         },
         "SSEKMSKeyId":{
           "shape":"SSEKMSKeyId",
-          "documentation":"<p> If present, specifies the ID (Key ID, Key ARN, or Key Alias) of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for stored in Amazon S3 object. </p>",
+          "documentation":"<p> If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for stored in Amazon S3 object. </p>",
           "location":"header",
           "locationName":"x-amz-fwd-header-x-amz-server-side-encryption-aws-kms-key-id"
         },
@@ -12246,36 +12339,7 @@
       },
       "payload":"Body"
     },
-    "WriteOffsetBytes":{
-      "type":"long",
-      "box":true
-    },
-    "Years":{
-      "type":"integer",
-      "box":true
-    }
+    "Years":{"type":"integer"}
   },
-  "documentation":"<p/>",
-  "clientContextParams":{
-    "Accelerate":{
-      "documentation":"Enables this client to use S3 Transfer Acceleration endpoints.",
-      "type":"boolean"
-    },
-    "DisableMultiRegionAccessPoints":{
-      "documentation":"Disables this client's usage of Multi-Region Access Points.",
-      "type":"boolean"
-    },
-    "DisableS3ExpressSessionAuth":{
-      "documentation":"Disables this client's usage of Session Auth for S3Express\n      buckets and reverts to using conventional SigV4 for those.",
-      "type":"boolean"
-    },
-    "ForcePathStyle":{
-      "documentation":"Forces this client to use path-style addressing for buckets.",
-      "type":"boolean"
-    },
-    "UseArnRegion":{
-      "documentation":"Enables this client to use an ARN's region when constructing an endpoint instead of the client's configured region.",
-      "type":"boolean"
-    }
-  }
+  "documentation":"<p/>"
 }
