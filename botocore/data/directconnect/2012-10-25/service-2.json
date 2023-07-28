@@ -1251,6 +1251,10 @@
       "type":"list",
       "member":{"shape":"PortSpeed"}
     },
+    "AvailableVlans":{
+      "type":"list",
+      "member":{"shape":"VLAN"}
+    },
     "AwsDevice":{
       "type":"string",
       "deprecated":true
@@ -1520,21 +1524,9 @@
           "shape":"ProviderName",
           "documentation":"<p>The name of the service provider associated with the connection.</p>"
         },
-        "macSecCapable":{
-          "shape":"MacSecCapable",
-          "documentation":"<p>Indicates whether the connection supports MAC Security (MACsec).</p>"
-        },
-        "portEncryptionStatus":{
-          "shape":"PortEncryptionStatus",
-          "documentation":"<p>The MAC Security (MACsec) port link status of the connection.</p> <p>The valid values are <code>Encryption Up</code>, which means that there is an active Connection Key Name, or <code>Encryption Down</code>.</p>"
-        },
-        "encryptionMode":{
-          "shape":"EncryptionMode",
-          "documentation":"<p>The MAC Security (MACsec) connection encryption mode.</p> <p>The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.</p>"
-        },
-        "macSecKeys":{
-          "shape":"MacSecKeyList",
-          "documentation":"<p>The MAC Security (MACsec) security keys associated with the connection.</p>"
+        "availableVlans":{
+          "shape":"AvailableVlans",
+          "documentation":"<p>The list of VLAN IDs available for Virtual Interfaces associated with this connection.</p>"
         }
       },
       "documentation":"<p>Information about an Direct Connect connection.</p>"
@@ -2858,17 +2850,9 @@
           "shape":"ProviderName",
           "documentation":"<p>The name of the service provider associated with the LAG.</p>"
         },
-        "macSecCapable":{
-          "shape":"MacSecCapable",
-          "documentation":"<p>Indicates whether the LAG supports MAC Security (MACsec).</p>"
-        },
-        "encryptionMode":{
-          "shape":"EncryptionMode",
-          "documentation":"<p>The LAG MAC Security (MACsec) encryption mode.</p> <p>The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.</p>"
-        },
-        "macSecKeys":{
-          "shape":"MacSecKeyList",
-          "documentation":"<p>The MAC Security (MACsec) security keys associated with the LAG.</p>"
+         "availableVlans":{
+          "shape":"AvailableVlans",
+          "documentation":"<p>The list of VLAN IDs available for Virtual Interfaces associated with this LAG.</p>"
         }
       },
       "documentation":"<p>Information about a link aggregation group (LAG).</p>"
