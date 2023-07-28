@@ -1233,6 +1233,10 @@
       "type":"list",
       "member":{"shape":"PortSpeed"}
     },
+    "AvailableVlans":{
+      "type":"list",
+      "member":{"shape":"VLAN"}
+    },
     "AwsDevice":{
       "type":"string",
       "deprecated":true
@@ -1501,6 +1505,10 @@
         "providerName":{
           "shape":"ProviderName",
           "documentation":"<p>The name of the service provider associated with the connection.</p>"
+        },
+        "availableVlans":{
+          "shape":"AvailableVlans",
+          "documentation":"<p>The list of VLAN IDs available for Virtual Interfaces associated with this connection.</p>"
         },
         "macSecCapable":{
           "shape":"MacSecCapable",
@@ -2823,6 +2831,10 @@
         "providerName":{
           "shape":"ProviderName",
           "documentation":"<p>The name of the service provider associated with the LAG.</p>"
+        },
+         "availableVlans":{
+          "shape":"AvailableVlans",
+          "documentation":"<p>The list of VLAN IDs available for Virtual Interfaces associated with this LAG.</p>"
         },
         "macSecCapable":{
           "shape":"MacSecCapable",
