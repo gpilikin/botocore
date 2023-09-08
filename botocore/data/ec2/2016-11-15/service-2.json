@@ -33595,6 +33595,11 @@
           "shape":"Integer",
           "documentation":"<p>Amount of total memory on Host type.</p>",
           "locationName":"memory"
+        },
+        "SupportedInstanceFamilies":{
+          "shape":"HostInstanceFamilyList",
+          "documentation":"<p>List of instance families supported by Host type.</p>",
+          "locationName":"supportedInstanceFamilies"
         }
       }
     },
