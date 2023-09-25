@@ -1471,7 +1471,7 @@
           "documentation":"<p>The current state of the group when the <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DeleteAutoScalingGroup.html\">DeleteAutoScalingGroup</a> operation is in progress.</p>"
         },
         "Tags":{
-          "shape":"TagDescriptionList",
+          "shape":"Tags",
           "documentation":"<p>The tags for the group.</p>"
         },
         "TerminationPolicies":{
@@ -1494,45 +1494,9 @@
           "shape":"CapacityRebalanceEnabled",
           "documentation":"<p>Indicates whether Capacity Rebalancing is enabled.</p>"
         },
-        "WarmPoolConfiguration":{
-          "shape":"WarmPoolConfiguration",
-          "documentation":"<p>The warm pool for the group.</p>"
-        },
-        "WarmPoolSize":{
-          "shape":"WarmPoolSize",
-          "documentation":"<p>The current size of the warm pool.</p>"
-        },
-        "Context":{
-          "shape":"Context",
-          "documentation":"<p>Reserved.</p>"
-        },
-        "DesiredCapacityType":{
-          "shape":"XmlStringMaxLen255",
-          "documentation":"<p>The unit of measurement for the value specified for desired capacity. Amazon EC2 Auto Scaling supports <code>DesiredCapacityType</code> for attribute-based instance type selection only.</p>"
-        },
-        "DefaultInstanceWarmup":{
-          "shape":"DefaultInstanceWarmup",
-          "documentation":"<p>The duration of the default instance warmup, in seconds.</p>"
-        },
-        "TrafficSources":{
-          "shape":"TrafficSources",
-          "documentation":"<p>The traffic sources associated with this Auto Scaling group.</p>"
-        },
-        "InstanceMaintenancePolicy":{
-          "shape":"InstanceMaintenancePolicy",
-          "documentation":"<p>An instance maintenance policy.</p>"
-        },
-        "AvailabilityZoneDistribution":{
-          "shape":"AvailabilityZoneDistribution",
-          "documentation":"<p> The instance capacity distribution across Availability Zones. </p>"
-        },
-        "AvailabilityZoneImpairmentPolicy":{
-          "shape":"AvailabilityZoneImpairmentPolicy",
-          "documentation":"<p> The Availability Zone impairment policy. </p>"
-        },
-        "CapacityReservationSpecification":{
-          "shape":"CapacityReservationSpecification",
-          "documentation":"<p> The capacity reservation specification. </p>"
+        "AutoScalingGroupId": {
+          "shape":"XmlString",
+          "documentation":"<p>The id of the group.</p>"
         }
       },
       "documentation":"<p>Describes an Auto Scaling group.</p>"
@@ -1635,6 +1599,10 @@
         "ProtectedFromScaleIn":{
           "shape":"InstanceProtected",
           "documentation":"<p>Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.</p>"
+        },
+        "Tags":{
+          "shape":"Tags",
+          "documentation":"<p>One or more tags. You can tag your Auto Scaling group and propagate the tags to the Amazon EC2 instances it launches. Tags are not propagated to Amazon EBS volumes. To add tags to Amazon EBS volumes, specify the tags in a launch template but use caution. If the launch template specifies an instance tag with a key that is also specified for the Auto Scaling group, Amazon EC2 Auto Scaling overrides the value of that instance tag with the value specified by the Auto Scaling group. For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html\">Tagging Auto Scaling groups and instances</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p>"
         },
         "WeightedCapacity":{
           "shape":"XmlStringMaxLen32",
@@ -3090,7 +3058,7 @@
       "members":{
         "Name":{
           "shape":"XmlString",
-          "documentation":"<p>The name of the filter.</p> <p>The valid values for <code>Name</code> depend on which API operation you're using with the filter (<a href=\"https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DescribeAutoScalingGroups.html\">DescribeAutoScalingGroups</a> or <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_DescribeTags.html\">DescribeTags</a>).</p> <p> <b>DescribeAutoScalingGroups</b> </p> <p>Valid values for <code>Name</code> include the following: </p> <ul> <li> <p> <code>tag-key</code> - Accepts tag keys. The results only include information about the Auto Scaling groups associated with these tag keys. </p> </li> <li> <p> <code>tag-value</code> - Accepts tag values. The results only include information about the Auto Scaling groups associated with these tag values. </p> </li> <li> <p> <code>tag:&lt;key&gt;</code> - Accepts the key/value combination of the tag. Use the tag key in the filter name and the tag value as the filter value. The results only include information about the Auto Scaling groups associated with the specified key/value combination. </p> </li> </ul> <p> <b>DescribeTags</b> </p> <p>Valid values for <code>Name</code> include the following: </p> <ul> <li> <p> <code>auto-scaling-group</code> - Accepts the names of Auto Scaling groups. The results only include information about the tags associated with these Auto Scaling groups. </p> </li> <li> <p> <code>key</code> - Accepts tag keys. The results only include information about the tags associated with these tag keys. </p> </li> <li> <p> <code>value</code> - Accepts tag values. The results only include information about the tags associated with these tag values. </p> </li> <li> <p> <code>propagate-at-launch</code> - Accepts a Boolean value, which specifies whether tags propagate to instances at launch. The results only include information about the tags associated with the specified Boolean value. </p> </li> </ul>"
+          "documentation":"<p>The name of the filter.</p> <p>The valid values for <code>Name</code> depend on which API operation you're using with the filter (<a>DescribeAutoScalingGroups</a> or <a>DescribeTags</a>).</p> <p> <b>DescribeAutoScalingGroups</b> </p> <p>Valid values for <code>Name</code> include the following: </p> <ul> <li> <p> <code>tag-key</code> - Accepts tag keys. The results only include information about the Auto Scaling groups associated with these tag keys. </p> </li> <li> <p> <code>tag-value</code> - Accepts tag values. The results only include information about the Auto Scaling groups associated with these tag values. </p> </li> <li> <p> <code>tag:&lt;key&gt;</code> - Accepts the key/value combination of the tag. Use the tag key in the filter name and the tag value as the filter value. The results only include information about the Auto Scaling groups associated with the specified key/value combination. </p> </li> </ul> <p> <b>DescribeTags</b> </p> <p>Valid values for <code>Name</code> include the following: </p> <ul> <li> <p> <code>auto-scaling-group</code> - Accepts the names of Auto Scaling groups. The results only include information about the tags associated with these Auto Scaling groups. </p> </li> <li> <p> <code>key</code> - Accepts tag keys. The results only include information about the tags associated with these tag keys. </p> </li> <li> <p> <code>value</code> - Accepts tag values. The results only include information about the tags associated with these tag values. </p> </li> <li> <p> <code>propagate-at-launch</code> - Accepts a Boolean value, which specifies whether tags propagate to instances at launch. The results only include information about the tags associated with the specified Boolean value. </p> </li> </ul>"
         },
         "Values":{
           "shape":"Values",
