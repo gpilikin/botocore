@@ -2146,6 +2146,10 @@
         "IamRoleArn":{
           "shape":"IAMRoleArn",
           "documentation":"<p>Specifies the IAM role Amazon Resource Name (ARN) to create the target recovery point; for example, <code>arn:aws:iam::123456789012:role/S3Access</code>.</p>"
+        },
+        "ResourcesCount":{
+          "shape": "ResourcesCount",
+          "documentation": "<p>Represents the number of resources by each resource type."
         }
       },
       "documentation":"<p>Contains metadata about a <code>BackupSelection</code> object.</p>"
@@ -6614,24 +6618,13 @@
       "type":"list",
       "member":{"shape":"ResourceType"}
     },
-    "RestoreDeletionStatus":{
-      "type":"string",
-      "enum":[
-        "DELETING",
-        "FAILED",
-        "SUCCESSFUL"
-      ]
+    "ResourcesCount":{
+      "type":"map",
+      "key":{"shape":"ResourcesCountKey"},
+      "value":{"shape":"ResourcesCountValue"}
     },
-    "RestoreJobCreator":{
-      "type":"structure",
-      "members":{
-        "RestoreTestingPlanArn":{
-          "shape":"ARN",
-          "documentation":"<p>An Amazon Resource Name (ARN) that uniquely identifies a restore testing plan.</p>"
-        }
-      },
-      "documentation":"<p>Contains information about the restore testing plan that Backup used to initiate the restore job.</p>"
-    },
+    "ResourcesCountKey":{"type":"string"},
+    "ResourcesCountValue":{"type":"long"},
     "RestoreJobId":{"type":"string"},
     "RestoreJobState":{
       "type":"string",
