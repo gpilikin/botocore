@@ -899,6 +899,7 @@
       "min":1,
       "pattern":".+"
     },
+    "DNSName":{"type":"string"},
     "DeleteAccessPointRequest":{
       "type":"structure",
       "required":["AccessPointId"],
@@ -1856,7 +1857,11 @@
         },
         "VpcId":{
           "shape":"VpcId",
-          "documentation":"<p>The virtual private cloud (VPC) ID that the mount target is configured in.</p>"
+          "documentation":"<p>The Virtual Private Cloud (VPC) ID that the mount target is configured in.</p>"
+        },
+        "DNSName":{
+          "shape":"DNSName",
+          "documentation":"<p>The DNS name of the mount target.</p>"
         }
       },
       "documentation":"<p>Provides a description of a mount target.</p>"
