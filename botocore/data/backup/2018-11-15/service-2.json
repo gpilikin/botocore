@@ -3554,29 +3554,9 @@
           "shape":"timestamp",
           "documentation":"<p>The date and time that a resource was last backed up, in Unix format and Coordinated Universal Time (UTC). The value of <code>LastBackupTime</code> is accurate to milliseconds. For example, the value 1516925490.087 represents Friday, January 26, 2018 12:11:30.087 AM.</p>"
         },
-        "ResourceName":{
+        "LastTagName":{
           "shape":"string",
-          "documentation":"<p>The name of the resource that belongs to the specified backup.</p>"
-        },
-        "LastBackupVaultArn":{
-          "shape":"ARN",
-          "documentation":"<p>The ARN (Amazon Resource Name) of the backup vault that contains the most recent backup recovery point.</p>"
-        },
-        "LastRecoveryPointArn":{
-          "shape":"ARN",
-          "documentation":"<p>The ARN (Amazon Resource Name) of the most recent recovery point.</p>"
-        },
-        "LatestRestoreExecutionTimeMinutes":{
-          "shape":"Long",
-          "documentation":"<p>The time, in minutes, that the most recent restore job took to complete.</p>"
-        },
-        "LatestRestoreJobCreationDate":{
-          "shape":"timestamp",
-          "documentation":"<p>The creation date of the most recent restore job.</p>"
-        },
-        "LatestRestoreRecoveryPointCreationDate":{
-          "shape":"timestamp",
-          "documentation":"<p>The date the most recent recovery point was created.</p>"
+          "documentation":"<p>The tag name of resource retrieved from the last recovery point.</p>"
         }
       }
     },
@@ -6057,17 +6037,9 @@
           "shape":"timestamp",
           "documentation":"<p>The date and time a resource was last backed up, in Unix format and Coordinated Universal Time (UTC). The value of <code>LastBackupTime</code> is accurate to milliseconds. For example, the value 1516925490.087 represents Friday, January 26, 2018 12:11:30.087 AM.</p>"
         },
-        "ResourceName":{
+        "LastTagName":{
           "shape":"string",
-          "documentation":"<p>The non-unique name of the resource that belongs to the specified backup.</p>"
-        },
-        "LastBackupVaultArn":{
-          "shape":"ARN",
-          "documentation":"<p>The ARN (Amazon Resource Name) of the backup vault that contains the most recent backup recovery point.</p>"
-        },
-        "LastRecoveryPointArn":{
-          "shape":"ARN",
-          "documentation":"<p>The ARN (Amazon Resource Name) of the most recent recovery point.</p>"
+          "documentation":"<p>The tag name of resource retrieved from the last recovery point.</p>"
         }
       },
       "documentation":"<p>A structure that contains information about a backed-up resource.</p>"
