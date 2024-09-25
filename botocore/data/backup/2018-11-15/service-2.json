@@ -1820,6 +1820,15 @@
       "type":"list",
       "member":{"shape":"BackupJobSummary"}
     },
+    "BackupJobConfiguration":{
+      "type":"structure",
+      "members":{
+        "ExcludeVolumeIds":{
+          "shape":"VolumeIds",
+          "documentation":"<p>List of volume ids to exclude from instance's backup.</p>"
+        }
+      }
+    },
     "BackupJobsList":{
       "type":"list",
       "member":{"shape":"BackupJob"}
@@ -2099,18 +2108,32 @@
         },
         "ListOfTags":{
           "shape":"ListOfTags",
-          "documentation":"<p>The conditions that you define to assign resources to your backup plans using tags. For example, <code>\"StringEquals\": { \"ConditionKey\": \"backup\", \"ConditionValue\": \"daily\"}</code>.</p> <p> <code>ListOfTags</code> supports only <code>StringEquals</code>. Condition operators are case sensitive.</p> <p>If you specify multiple conditions, the resources much match any of the conditions (OR logic).</p>"
+          "documentation":"<p>An array of conditions used to specify a set of resources to assign to a backup plan; for example, <code>\"StringEquals\": {\"ec2:ResourceTag/Department\": \"accounting\"</code>. Assigns the backup plan to every resource with at least one matching tag.</p>"
         },
-        "NotResources":{
-          "shape":"ResourceArns",
-          "documentation":"<p>The Amazon Resource Names (ARNs) of the resources to exclude from a backup plan. The maximum number of ARNs is 500 without wildcards, or 30 ARNs with wildcards.</p> <p>If you need to exclude many resources from a backup plan, consider a different resource selection strategy, such as assigning only one or a few resource types or refining your resource selection using tags.</p>"
-        },
-        "Conditions":{
-          "shape":"Conditions",
-          "documentation":"<p>The conditions that you define to assign resources to your backup plans using tags. For example, <code>\"StringEquals\": { \"ConditionKey\": \"aws:ResourceTag/backup\", \"ConditionValue\": \"daily\" }</code>.</p> <p> <code>Conditions</code> supports <code>StringEquals</code>, <code>StringLike</code>, <code>StringNotEquals</code>, and <code>StringNotLike</code>. Condition operators are case sensitive.</p> <p>If you specify multiple conditions, the resources much match all conditions (AND logic).</p>"
+        "Configuration":{
+          "shape":"BackupSelectionConfiguration",
+          "documentation":"<p>Configuration to apply to individual resources.</p>"
         }
       },
       "documentation":"<p>Used to specify a set of resources to a backup plan.</p> <p>We recommend that you specify conditions, tags, or resources to include or exclude. Otherwise, Backup attempts to select all supported and opted-in storage resources, which could have unintended cost implications.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/aws-backup/latest/devguide/assigning-resources.html#assigning-resources-json\">Assigning resources programmatically</a>.</p>"
+    },
+    "BackupSelectionConfiguration":{
+      "type":"list",
+      "member":{"shape":"BackupSelectionConfigurationItem"}
+    },
+    "BackupSelectionConfigurationItem":{
+      "type":"structure",
+      "required":["Resource"],
+      "members":{
+        "Resource":{
+          "shape":"ARN",
+          "documentation":"<p>ARN of resource to apply configuration to.</p>."
+        },
+        "ExcludeVolumeIds":{
+          "shape":"VolumeIds",
+          "documentation":"<p>List of volume ids to exclude from instance's backup.</p>"
+        }
+      }
     },
     "BackupSelectionName":{
       "type":"string",
@@ -7182,11 +7205,11 @@
         },
         "BackupOptions":{
           "shape":"BackupOptions",
-          "documentation":"<p>The backup option for a selected resource. This option is only available for Windows Volume Shadow Copy Service (VSS) backup jobs.</p> <p>Valid values: Set to <code>\"WindowsVSS\":\"enabled\"</code> to enable the <code>WindowsVSS</code> backup option and create a Windows VSS backup. Set to <code>\"WindowsVSS\"\"disabled\"</code> to create a regular backup. The <code>WindowsVSS</code> option is not enabled by default.</p>"
+          "documentation":"<p>Specifies the backup option for a selected resource. This option is only available for Windows VSS backup jobs.</p> <p>Valid values: Set to <code>\"WindowsVSS”:“enabled\"</code> to enable WindowsVSS backup option and create a VSS Windows backup. Set to “WindowsVSS”:”disabled” to create a regular backup. The WindowsVSS option is not enabled by default.</p>"
         },
-        "Index":{
-          "shape":"Index",
-          "documentation":"<p>Include this parameter to enable index creation if your backup job has a resource type that supports backup indexes.</p> <p>Resource types that support backup indexes include:</p> <ul> <li> <p> <code>EBS</code> for Amazon Elastic Block Store</p> </li> <li> <p> <code>S3</code> for Amazon Simple Storage Service (Amazon S3)</p> </li> </ul> <p>Index can have 1 of 2 possible values, either <code>ENABLED</code> or <code>DISABLED</code>.</p> <p>To create a backup index for an eligible <code>ACTIVE</code> recovery point that does not yet have a backup index, set value to <code>ENABLED</code>.</p> <p>To delete a backup index, set value to <code>DISABLED</code>.</p>"
+        "Configuration": {
+          "shape": "BackupJobConfiguration",
+          "documentation":"<p>Specifies the backup job configuration.</p>"
         }
       }
     },
@@ -7780,6 +7803,11 @@
         "BACKUP_VAULT",
         "LOGICALLY_AIR_GAPPED_BACKUP_VAULT"
       ]
+    },
+    "VolumeId":{"type":"string"},
+    "VolumeIds":{
+      "type":"list",
+      "member":{"shape":"VolumeId"}
     },
     "WindowMinutes":{"type":"long"},
     "boolean":{"type":"boolean"},
