@@ -4,7 +4,7 @@
 Name:           python-%{pkgname}
 # NOTICE - Updating this package requires updating python-boto3
 Version:        1.20.14
-Release:        ROCKIT54.rc2%{?buildid}%{?dist}
+Release:        ROCKIT55.rc2%{?buildid}%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        ASL 2.0
@@ -47,7 +47,13 @@ rm -rf tests/integration
 %{python3_sitelib}/%{pkgname}-*.egg-info/
 
 %changelog
-* Mon Jan 20 2025 Andrey Kulaev <akulaev@k2.cloud> - 1.20.14-ROCKIT54.rc2
+* Mon Feb 10 2025 Evgenii Pozdniakov <epozdniakov@k2.cloud> - 1.20.14-ROCKIT55.rc2
+- s3: add missing shapes
+
+* Tue Feb 4 2025 Vladimir Litvinov <vlitvinov@k2.cloud> - 1.20.14-ROCKIT55.rc1
+- admin: update models
+
+* Mon Jan 20 2025 Andrey Kulaev <akulaev@k2.cloud> - 1.20.14-ROCKIT54
 - paas: add method for kafka topics
 - iam: Add Tags into User shape
 - iam: Add Tag support for IAM Users
